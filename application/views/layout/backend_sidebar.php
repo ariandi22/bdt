@@ -5,7 +5,7 @@
                         <a href="<?= base_url('admin/index') ?>"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="<?= base_url('admin/index') ?>"><i class="fa fa-fw fa-file-text-o"></i> Pages</a>
+                        <a href="<?= base_url('pages/index') ?>"><i class="fa fa-fw fa-file-text-o"></i> Pages</a>
                     </li>
                     
                     <li>
@@ -30,18 +30,16 @@
                                 <a href="<?= base_url('admin/list_header')?>">General</a>
                             </li>
                             <li>
-                                <a href="<?= base_url('info/list_info') ?>">Info</a>
+                                <a href="<?= base_url('info/list_info') ?>">Account</a>
                             </li>
                             <li>
-                                <a href="#">Menu</a>
-                            </li>
-                            <li>
-                                <a href="#">Footer</a>
+                                <a href="<?= base_url('seo/index') ?>">Seo</a>
                             </li>
                         </ul>
                     </li>
+                    <hr>
                     <li class="b-credit">
-                        <a><small><i class="fa fa-leaf"></i>  powered by Bigkiandi.</small></a>
+                        <a><small><i class="fa fa-leaf"></i> BigCMS  powered by Bigkiandi.</small></a>
                     </li>
                 </ul>
 

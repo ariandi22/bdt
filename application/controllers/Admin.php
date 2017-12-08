@@ -246,10 +246,10 @@ class Admin extends CI_Controller {
         $mime = get_mime_by_extension($_FILES['userfile']['name']);
         if(isset($_FILES['userfile']['name']) && $_FILES['userfile']['name']!=""){
             if(!in_array($mime, $allowed_mime_type_arr)){
-                $this->form_validation->set_message('filecek', 'Please select only gif/jpg/png file.');
+                $this->form_validation->set_message('filecek_up', 'Please select only gif/jpg/png file.');
                 return false;
             } else if($_FILES['userfile']['size'] < 2000) {
-                $this->form_validation->set_message('filecek', 'file too large, only 2MB are allowed');
+                $this->form_validation->set_message('filecek_up', 'file too large, only 2MB are allowed');
                 return false;
             } else {
                 return true;

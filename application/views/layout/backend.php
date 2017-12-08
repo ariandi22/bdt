@@ -14,6 +14,7 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="<?= base_url()?>assets/backend/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.5.4/bootstrap-select.min.css">
     <!-- Custom CSS -->
     <link href="<?= base_url()?>assets/backend/css/sb-admin.css" rel="stylesheet">
     <!-- Custom Fonts -->
@@ -23,6 +24,10 @@
     <script src="<?= base_url()?>assets/backend/js/jquery.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="<?= base_url()?>assets/backend/js/bootstrap.min.js"></script>
+    <!-- tinyMce -->
+    <script src="<?= base_url() ?>assets/editor/tinymce.min.js"></script>
+    <!-- tinymce selector field -->
+    <script src="<?= base_url() ?>assets/editor/selector.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

@@ -247,3 +247,18 @@ ul.alert-dropdown {
 }
 
 /*tabs costume*/
+.table .t {
+    vertical-align: middle;
+}
+.panel-default .alert {
+    padding: 5px;
+}
+/*.pad .panel-body {
+    padding: 5px;
+}*/
+
+/*row padding col create post*/
+.pad {
+    margin-left: 0;
+    padding-left: 0;
+}

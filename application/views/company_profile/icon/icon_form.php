@@ -21,7 +21,7 @@
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
 
     	    <div class="form-group">
-                <label for="varchar">Icon <?php echo form_error('userfile') ?></label>
+                <label for="varchar">Icon <small class="text-danger"><?php echo form_error('userfile') ?></small></label>
                 <input type="file" name="userfile" id="userfile" class="text-center well well-sm" />
             </div>
 

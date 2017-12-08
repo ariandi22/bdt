@@ -28,20 +28,32 @@
                     </div>
                 </div>
                 <!-- /.row -->
-                
                 <div class="row">
+                 <div class="col-md-6">
+                    <h4>Site identity</h4>
+                    <table class="table table-striped">
+                    <tbody>
+
+                     <tr>
+                         <td class="t">Site Title</td>
+                         <td><input type="text" class="form-control" name=""></td>
+                     </tr>
+                     <tr>
+                         <td class="t">Tagline</td>
+                         <td><input type="text" class="form-control" name=""></td>
+                     </tr>
+
+                    </tbody>
+                    </table>
+                 </div>
+                 </div>
+
+                 <div class="row">
                     <div class="col-lg-6">
-                        <h4>Header Logo <?php echo anchor(site_url('admin/create_logo'), '+ add', 'class="btn btn-primary btn-xs"'); ?></h4>
+                        <h4>Header Logo <!-- <?php echo anchor(site_url('admin/create_logo'), '+ add', 'class="btn btn-primary btn-xs"'); ?> --></h4>
                         <div class="table-responsive">
                             <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Img</th>
-                                        <th>Status</th>
-                                        <th>Created At</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
+
                                 <tbody>
                                     <?php if (empty($logo)) {echo $this->empty;}?> 
                                     <?php foreach ($logo as $a) { ?>
@@ -57,18 +69,16 @@
                                                 <?php echo 'Inactive';} ?>
                                                 </a>
                                         </td>
-                                        <td><?= date('d-M-y h:i A', strtotime($a['created_at'])); ?></td>
                                         <td>
-                                            <a href="<?= base_url('admin/up_logo/').$a['id'] ?>"><i class="fa fa-edit"></i></a>  -  
-                                            <a href="#" onClick="ConfirmDelete(<?= $a['id'] ?>)"><i class="fa fa-trash"></i></a>
-                                            <script>
-                                              function ConfirmDelete(id) {
-                                                var iditem = id;
-                                                if (confirm("Are you sure want to delete this?"))
-                                                location.href='<?= base_url('admin/delete_logo/');?>'+ iditem;
-                                              }
-                                            </script>
+                                            <a class="btn btn-default btn-sm" href="<?= base_url('admin/up_logo/').$a['id'] ?>"><i class="fa fa-edit"></i></a>
+                                            <a class="btn btn-default btn-sm" onclick="ConfirmDeletelogo(<?= $a['id'] ?>)"><i class="fa fa-trash"></i></a>
                                         </td>
+                                        <script type="text/javascript">
+                                              function ConfirmDeletelogo(id) {
+                                                if (confirm("Are you sure want to delete this?"))
+                                                location.href='<?= base_url('admin/delete_logo/');?>'+ id;
+                                              }
+                                        </script>
                                     </tr>
                                     <?php } ?>
                                 </tbody>
@@ -78,16 +88,9 @@
                     </div>
 
                     <div class="col-lg-6">
-                        <h4>Site Icon <?php echo anchor(site_url('admin/create_icon'), '+ add', 'class="btn btn-primary btn-xs"'); ?></h4>
+                        <h4>Favicon <!-- <?php echo anchor(site_url('admin/create_icon'), '+ add', 'class="btn btn-primary btn-xs"'); ?> --></h4>
                         <div class="table-responsive">
                             <table class="table table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Images</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
                                 <tbody>
                                     <?php if (empty($icon)) {echo $this->empty;}?> 
                                     <?php foreach ($icon as $a) { ?>
@@ -103,10 +106,9 @@
                                                 <?php echo 'Inactive';} ?>
                                                 </a>
                                         </td>
-                                        <td><?= date('d-M-y h:i A', strtotime($a['created_at'])); ?></td>
                                         <td>
-                                            <a href="<?= base_url('admin/up_logo/').$a['id'] ?>"><i class="fa fa-edit"></i></a>  -  
-                                            <a href="#" onClick="ConfirmDelete(<?= $a['id'] ?>)"><i class="fa fa-trash"></i></a>
+                                            <a class="btn btn-default btn-sm" href="<?= base_url('admin/up_logo/').$a['id'] ?>"><i class="fa fa-edit"></i></a>
+                                            <a class="btn btn-default btn-sm" href="#" onclick="ConfirmDelete(<?= $a['id'] ?>)"><i class="fa fa-trash"></i></a>
                                             <script>
                                               function ConfirmDelete(id) {
                                                 var iditem = id;
@@ -124,31 +126,6 @@
                 </div>
                 <!-- /.row -->
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h4>Image Slider <a href="" class="btn btn-primary btn-xs">+ add</a></h4>
-                        <div class="table-responsive">
-                            <table class="table table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Image</th>
-                                        <th>Status</th>
-                                        <th>Description</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php if (empty($carousel)) {echo $this->empty;}?> 
-                                    <?php foreach ($carousel as $a) { ?>
-                                    <tr>
-                                        <td></td>
-                                    </tr>
-                                    <?php } ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
                 <!-- /.row -->
 
             </div>
