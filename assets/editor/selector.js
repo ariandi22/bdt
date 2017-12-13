@@ -1,7 +1,7 @@
 var base_url='http://localhost/gdt/';
 tinymce.init({
   selector: '.editor',
-  height: 500,
+  height: 350,
   menubar: false,
   plugins: [
     'advlist autolink lists link image charmap print preview anchor textcolor',

@@ -36,18 +36,36 @@
                         </ol>
                     </div>
                     <div class="col-md-6">
-                        <?php if($this->session->userdata('message') <> '') {
-                            echo '<div class="alert alert-success alert-dismissable">
-                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
-                                        .$this->session->userdata('message').
-                                 '</div>';
-                        } else {
-                            '';
-                        } ?>
+                        <?php 
+                          if($this->session->flashdata('success') != null)
+                                {
+                                    ?>
+                                    <div class="alert alert-success alert-dismissable">
+                                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                      <?php echo $this->session->flashdata('success'); ?>
+                                    </div>
+                                    <?php
+                                }
+                            if($this->session->flashdata('fail') != null)
+                                {
+                                  ?>
+                                    <div class="alert alert-danger alert-dismissable">
+                                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                      <?php echo $this->session->flashdata('fail'); ?>
+                                    </div>
+                                    <?php
+                                }
+
+                        ; ?>
                     </div>
                 </div>
                 <!-- /.row -->
                 <div class="row">
+                 <div class="col-md-6">
+                 	<div class="alert alert-info">
+                		<i class="fa fa-info-circle"></i> Field status <strong>" 1 is visible and 0 is Draft "</strong>
+            		</div>
+                 </div>
                  <div class="col-md-12">
                     <table class="table table-condensed table-striped" id="mytable">
 			            <thead>

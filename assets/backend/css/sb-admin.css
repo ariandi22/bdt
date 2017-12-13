@@ -32,7 +32,7 @@ h1,h2,h3,h4,h5 {
 #page-wrapper {
     width: 100%;
     padding: 0;
-    background-color: #fff;
+    background-color: #f1f1f1;
 }
 
 .huge {
@@ -126,7 +126,7 @@ ul.alert-dropdown {
         top: 51px;
         left: 225px;
         width: 225px;
-        margin-left: -225px;
+        margin-left: -227px;
         border: none;
         border-radius: 0;
         overflow-y: auto;
@@ -261,4 +261,68 @@ ul.alert-dropdown {
 .pad {
     margin-left: 0;
     padding-left: 0;
+}
+
+/*select style*/
+.select-style {
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+    width: 120px;
+    border-radius: 3px;
+    overflow: hidden;
+    background-color: #fff;
+
+    background: #fff;
+}
+
+.select-style select {
+    padding: 5px 8px;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+}
+
+.select-style select:focus {
+    outline: none;
+}
+
+/*delete border radius*/
+* {
+  -webkit-border-radius: 0 !important;
+     -moz-border-radius: 0 !important;
+          border-radius: 0 !important;
+}
+
+/*info style*/
+.p-info {
+    font-size: 11px;
+}
+
+.dragmenu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul > .item {
+    cursor: move;
+}
+
+.sortable-placeholde {
+    float: left;
+    border: 1px dashed #000;
+}
+.ui-sortable-placeholder {
+    border: 1px dashed;
+    visibility: visible !important;
+}
+
+.remove {
+    cursor: pointer;
 }

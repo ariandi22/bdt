@@ -24,7 +24,8 @@ class Pages extends CI_Controller {
     
     public function json() {
         header('Content-Type: application/json');
-        echo $this->m_pages->json();
+        $a =  $this->m_pages->json();
+        echo $a;
     }
 
     public function getCategory() {
@@ -43,7 +44,7 @@ class Pages extends CI_Controller {
 
     public function read($id) 
     {
-        $row = $this->M_pages->get_by_id($id);
+        $row = $this->m_pages->get_by_id($id);
         if ($row) {
             $data = array(
 				'id_post' => $row->id_post,
@@ -58,26 +59,23 @@ class Pages extends CI_Controller {
         
         $this->load->view('pages/pages_read', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('success', 'Record Not Found');
             redirect(site_url('pages'));
         }
     }
 
     public function create() 
     {
-        $data = array(
-        	'kategori' => $this->m_pages->inCategory(),
-            'button' => 'Create',
-            'action' => site_url('pages/create_action'),
-		    'id_post' => set_value('id_post'),
-		    'title' => set_value('title'),
-		    'content' => set_value('content'),
-		    'category' => set_value('category'),
-		    'status' => set_value('status'),
-		    'created_by' => set_value('created_by'),
-		    'created_at' => set_value('created_at'),
-		    'img' => set_value('img'),
-		);
+    	$data['kategori'] = $this->m_pages->inCategory();
+    	$data['button'] = 'Publish';
+    	$data['action'] = site_url('pages/create_action');
+    	$data['id_post'] = set_value('id_post');
+    	$data['title'] = set_value('title');
+    	$data['lang'] = set_value('lang');
+    	$data['konten'] = set_value('content');
+    	$data['category'] = set_value('category');
+    	$data['meta_desc'] = set_value('meta_desc');
+
 		$data['content'] = 'pages/pages_form';
  		$this->load->view('layout/backend', $data);
     }
@@ -89,42 +87,50 @@ class Pages extends CI_Controller {
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
-            $data = array(
-			'title' => $this->input->post('title',TRUE),
-			'content' => $this->input->post('content',TRUE),
-			'category' => $this->input->post('category',TRUE),
-			'status' => $this->input->post('status',TRUE),
-			'created_by' => $this->input->post('created_by',TRUE),
-			'created_at' => $this->input->post('created_at',TRUE),
-			'img' => $this->input->post('img',TRUE),
-		    );
+        	$data['title'] = $this->input->post('title',TRUE);
+        	$data['lang'] = $this->input->post('lang',TRUE);
+        	$data['content'] = $this->input->post('konten');
+        	$data['category'] = $this->input->post('category',TRUE);
+        	$data['meta_desc'] = $this->input->post('meta_desc',TRUE);
 
-            $this->M_pages->insert($data);
-            $this->session->set_flashdata('message', 'Create Record Success');
-            redirect(site_url('pages'));
+        	$slug = $this->input->post('title',TRUE);
+        	$data['slug'] = $this->ToSlug($slug);
+
+        	$data['img'] = $this->upload_handler($params);
+
+            if($this->m_pages->insert($data)) {
+            	$this->session->set_flashdata('success', 'Create Record Success');
+            	redirect(site_url('pages'));
+        	} else {
+        		$this->session->set_flashdata('fail', 'Something went wrong during the process. Try again');
+        		$gagal = $data['img'];
+        		unlink($gagal);
+        		redirect(site_url('pages'));
+        	}
         }
     }
     
     public function update($id) 
     {
-        $row = $this->M_pages->get_by_id($id);
+        $row = $this->m_pages->get_by_id($id);
 
         if ($row) {
-            $data = array(
-                'button' => 'Update',
-                'action' => site_url('pages/update_action'),
-		'id_post' => set_value('id_post', $row->id_post),
-		'title' => set_value('title', $row->title),
-		'content' => set_value('content', $row->content),
-		'category' => set_value('category', $row->category),
-		'status' => set_value('status', $row->status),
-		'created_by' => set_value('created_by', $row->created_by),
-		'created_at' => set_value('created_at', $row->created_at),
-		'img' => set_value('img', $row->img),
-	    );
-            $this->load->view('pages/pages_form', $data);
+
+        	$data['kategori'] = $this->m_pages->inCategory();
+        	$data['button'] = 'Update';
+        	$data['action'] = site_url('pages/update_action');
+        	$data['id_post'] = set_value('id_post', $row->id_post);
+        	$data['title'] = set_value('title', $row->title);
+        	$data['lang'] = set_value('lang', $row->title);
+        	$data['konten'] = set_value('content', $row->content);
+        	$data['category'] = set_value('category', $row->category);
+        	$data['meta_desc'] = set_value('meta_desc', $row->meta_desc);
+        	$data['status'] = set_value('status', $row->status);
+
+        	$data['content'] = 'pages/pages_form';
+            $this->load->view('layout/backend', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('success', 'Record Not Found');
             redirect(site_url('pages'));
         }
     }
@@ -136,32 +142,46 @@ class Pages extends CI_Controller {
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('id_post', TRUE));
         } else {
-            $data = array(
-		'title' => $this->input->post('title',TRUE),
-		'content' => $this->input->post('content',TRUE),
-		'category' => $this->input->post('category',TRUE),
-		'status' => $this->input->post('status',TRUE),
-		'created_by' => $this->input->post('created_by',TRUE),
-		'created_at' => $this->input->post('created_at',TRUE),
-		'img' => $this->input->post('img',TRUE),
-	    );
 
-            $this->M_pages->update($this->input->post('id_post', TRUE), $data);
-            $this->session->set_flashdata('message', 'Update Record Success');
-            redirect(site_url('pages'));
+        	$idpost = $this->input->post('id_post');
+        	$row = $this->m_pages->get_by_id($idpost);
+        	$img_old = $row->img;
+
+        	$data['title'] = $this->input->post('title',TRUE);
+        	$data['lang'] = $this->input->post('lang',TRUE);
+        	$data['content'] = $this->input->post('konten');
+        	$data['category'] = $this->input->post('category',TRUE);
+        	$data['meta_desc'] = $this->input->post('meta_desc',TRUE);
+        	$data['status'] = $this->input->post('status',TRUE);
+
+        	$slug = $this->input->post('title',TRUE);
+        	$data['slug'] = $this->ToSlug($slug);
+
+        	$cek = $this->upload_handler($params);
+        	if ($cek != false) {
+        		$data['img'] = $cek;
+        	}
+
+        	if($this->m_pages->update($this->input->post('id_post', TRUE), $data)) {
+        		if(isset($data['img'])) {unlink($img_old);}
+            	$this->session->set_flashdata('success', 'Update Record Success');
+            	redirect(site_url('pages'));
+        	}
         }
     }
     
     public function delete($id) 
     {
-        $row = $this->M_pages->get_by_id($id);
+        $row = $this->m_pages->get_by_id($id);
+        $img = $row->img;
 
         if ($row) {
-            $this->M_pages->delete($id);
-            $this->session->set_flashdata('message', 'Delete Record Success');
+            $this->m_pages->delete($id);
+            unlink($img);
+            $this->session->set_flashdata('success', 'Delete Record Success');
             redirect(site_url('pages'));
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('success', 'Record Not Found');
             redirect(site_url('pages'));
         }
     }
@@ -169,15 +189,78 @@ class Pages extends CI_Controller {
     public function _rules() 
     {
 	$this->form_validation->set_rules('title', 'title', 'trim|required');
-	$this->form_validation->set_rules('content', 'content', 'trim|required');
-	$this->form_validation->set_rules('category', 'category', 'trim|required');
-	$this->form_validation->set_rules('status', 'status', 'trim|required');
-	$this->form_validation->set_rules('created_by', 'created by', 'trim|required');
-	$this->form_validation->set_rules('created_at', 'created at', 'trim|required');
-	$this->form_validation->set_rules('img', 'img', 'trim|required');
+	$this->form_validation->set_rules('lang', 'language', 'trim|required');
+	$this->form_validation->set_rules('konten', 'content', 'trim|required');
+	$this->form_validation->set_rules('meta_desc', 'meta', 'max_length[160]');
 
 	$this->form_validation->set_rules('id_post', 'id_post', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+    }
+
+    public function ToSlug($text) { 
+		$text = preg_replace('~[^\\pL\d]+~u', '-', $text);
+		$text = trim($text, '-');
+		$text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+		$text = strtolower($text);
+		$text = preg_replace('~[^-\w]+~', '', $text);
+			if (empty($text)) {
+			    return 'n-a';
+			  }
+			  return $text;
+	}
+
+    public function upload_handler($params) {
+    	// check directory if available
+		$imagePath	= './i/pages/';
+		$newpath 	= '';
+		$year		= '';
+		$month		= '';
+		$path_full	= '';
+
+		$year  = date("Y");   //current year
+		
+		//check if current year directory is exist
+		if(!is_dir($imagePath.$year)) {
+			//make directory if not exist
+			mkdir($imagePath.$year, 0775, TRUE);
+		} 
+		
+		if (!file_exists($imagePath.$year.'/index.html')) {
+			
+			//create index.html to prevent browse image folder from browser
+			$createIndexHTML	= $imagePath.$year.'/index.html';
+			$handle 			= fopen($createIndexHTML, 'w') or die('Cannot open file:  '.$createIndexHTML); //implicitly creates file
+        }
+
+		// image config/requirement for upload
+		$config['upload_path'] = $imagePath.$year;
+		$config['allowed_types'] = 'gif|jpg|jpeg|png';
+        $config['encrypt_name'] = TRUE;
+
+		// upload image
+		$this->load->library('upload', $config);
+		if($this->upload->do_upload()) {
+			$upload_data = $this->upload->data();
+            $data['img'] = $imagePath.$year.'/'.$upload_data['raw_name'].'_thumb'.$upload_data['file_ext'];
+
+		$config['image_library'] = 'gd2';
+		$config['source_image'] = $upload_data["file_path"].$upload_data['file_name'];
+		$config['create_thumb'] = TRUE;
+		$config['maintain_ratio'] = TRUE;
+		$config['width']         = 500;
+		$config['height']       = 500;
+
+		$this->load->library('image_lib', $config);
+
+		$this->image_lib->resize();
+
+        $hapus = $upload_data["file_path"].$upload_data['file_name'];
+        unlink($hapus);
+
+        return $params = $imagePath.$year.'/'.$upload_data['raw_name'].'_thumb'.$upload_data['file_ext'];
+    	} else {
+    		return false;
+    	}
     }
 
 }

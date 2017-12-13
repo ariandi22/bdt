@@ -14,7 +14,6 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="<?= base_url()?>assets/backend/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.5.4/bootstrap-select.min.css">
     <!-- Custom CSS -->
     <link href="<?= base_url()?>assets/backend/css/sb-admin.css" rel="stylesheet">
     <!-- Custom Fonts -->

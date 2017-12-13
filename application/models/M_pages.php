@@ -15,7 +15,7 @@ class M_pages extends CI_Model
 
     // datatables
     function json() {
-        $this->datatables->select('id_post,title,content,category,status,created_by,created_at,img');
+        $this->datatables->select('id_post,title,content,category,status,created_by,created_at');
         $this->datatables->from('pages');
         //add this line for join
         //$this->datatables->join('table2', 'pages.field = table2.field');
@@ -31,6 +31,13 @@ class M_pages extends CI_Model
     function inCategory() {
     	$this->db->select('category');
     	$query = $this->db->get('category');
+    	return $query->result();
+    }
+
+    function CategoryForMenu() {
+    	$this->db->select('category, title, slug');
+    	$this->db->where('status', 1);
+    	$query = $this->db->get('pages');
     	return $query->result();
     }
 
@@ -86,6 +93,7 @@ class M_pages extends CI_Model
     function insert($data)
     {
         $this->db->insert($this->table, $data);
+        return true;
     }
 
     // update data
@@ -93,6 +101,7 @@ class M_pages extends CI_Model
     {
         $this->db->where($this->id, $id);
         $this->db->update($this->table, $data);
+        return true;
     }
 
     // delete data
