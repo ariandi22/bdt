@@ -47,7 +47,7 @@ class Pages extends CI_Controller {
         $row = $this->m_pages->get_by_id($id);
         if ($row) {
             $data = array(
-				'id_post' => $row->id_post,
+				'id_pages' => $row->id_pages,
 				'title' => $row->title,
 				'content' => $row->content,
 				'category' => $row->category,
@@ -69,7 +69,7 @@ class Pages extends CI_Controller {
     	$data['kategori'] = $this->m_pages->inCategory();
     	$data['button'] = 'Publish';
     	$data['action'] = site_url('pages/create_action');
-    	$data['id_post'] = set_value('id_post');
+    	$data['id_pages'] = set_value('id_pages');
     	$data['title'] = set_value('title');
     	$data['lang'] = set_value('lang');
     	$data['konten'] = set_value('content');
@@ -119,7 +119,7 @@ class Pages extends CI_Controller {
         	$data['kategori'] = $this->m_pages->inCategory();
         	$data['button'] = 'Update';
         	$data['action'] = site_url('pages/update_action');
-        	$data['id_post'] = set_value('id_post', $row->id_post);
+        	$data['id_pages'] = set_value('id_pages', $row->id_pages);
         	$data['title'] = set_value('title', $row->title);
         	$data['lang'] = set_value('lang', $row->title);
         	$data['konten'] = set_value('content', $row->content);
@@ -140,10 +140,10 @@ class Pages extends CI_Controller {
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
-            $this->update($this->input->post('id_post', TRUE));
+            $this->update($this->input->post('id_pages', TRUE));
         } else {
 
-        	$idpost = $this->input->post('id_post');
+        	$idpost = $this->input->post('id_pages');
         	$row = $this->m_pages->get_by_id($idpost);
         	$img_old = $row->img;
 
@@ -162,7 +162,7 @@ class Pages extends CI_Controller {
         		$data['img'] = $cek;
         	}
 
-        	if($this->m_pages->update($this->input->post('id_post', TRUE), $data)) {
+        	if($this->m_pages->update($this->input->post('id_pages', TRUE), $data)) {
         		if(isset($data['img'])) {unlink($img_old);}
             	$this->session->set_flashdata('success', 'Update Record Success');
             	redirect(site_url('pages'));
@@ -193,7 +193,7 @@ class Pages extends CI_Controller {
 	$this->form_validation->set_rules('konten', 'content', 'trim|required');
 	$this->form_validation->set_rules('meta_desc', 'meta', 'max_length[160]');
 
-	$this->form_validation->set_rules('id_post', 'id_post', 'trim');
+	$this->form_validation->set_rules('id_pages', 'id_pages', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 
@@ -259,8 +259,9 @@ class Pages extends CI_Controller {
 
         return $params = $imagePath.$year.'/'.$upload_data['raw_name'].'_thumb'.$upload_data['file_ext'];
     	} else {
-    		return false;
+    		return $params = '';
     	}
     }
 
 }
+?>

@@ -73,7 +73,7 @@
                     <label for="text-center">Feature Image <?php echo form_error('userfile') ?></label>
                     <input type="file" name="userfile" id="userfile" class="well well-sm">
                 </div>
-        	    <input type="hidden" name="id_post" value="<?php echo $id_post; ?>" /> 
+        	    <input type="hidden" name="id_pages" value="<?php echo $id_pages; ?>" /> 
 
         </div>
 

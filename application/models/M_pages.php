@@ -5,7 +5,7 @@ class M_pages extends CI_Model
 {
 
     public $table = 'pages';
-    public $id = 'id_post';
+    public $id = 'id_pages';
     public $order = 'DESC';
 
     function __construct()
@@ -15,11 +15,11 @@ class M_pages extends CI_Model
 
     // datatables
     function json() {
-        $this->datatables->select('id_post,title,content,category,status,created_by,created_at');
+        $this->datatables->select('id_pages,title,content,category,status,created_by,created_at');
         $this->datatables->from('pages');
         //add this line for join
         //$this->datatables->join('table2', 'pages.field = table2.field');
-        $this->datatables->add_column('action', anchor(site_url('pages/read/$1'),'Read')." | ".anchor(site_url('pages/update/$1'),'Update')." | ".anchor(site_url('pages/delete/$1'),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_post');
+        $this->datatables->add_column('action', anchor(site_url('pages/read/$1'),'Read')." | ".anchor(site_url('pages/update/$1'),'Update')." | ".anchor(site_url('pages/delete/$1'),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_pages');
         return $this->datatables->generate();
     }
 
@@ -62,7 +62,7 @@ class M_pages extends CI_Model
     
     // get total rows
     function total_rows($q = NULL) {
-        $this->db->like('id_post', $q);
+        $this->db->like('id_pages', $q);
 	$this->db->or_like('title', $q);
 	$this->db->or_like('content', $q);
 	$this->db->or_like('category', $q);
@@ -77,7 +77,7 @@ class M_pages extends CI_Model
     // get data with limit and search
     function get_limit_data($limit, $start = 0, $q = NULL) {
         $this->db->order_by($this->id, $this->order);
-        $this->db->like('id_post', $q);
+        $this->db->like('id_pages', $q);
 	$this->db->or_like('title', $q);
 	$this->db->or_like('content', $q);
 	$this->db->or_like('category', $q);

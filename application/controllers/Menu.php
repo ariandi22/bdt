@@ -26,17 +26,13 @@ class Menu extends CI_Controller {
     }
 
     public function insert() {
-
-    	foreach($_POST["kat"] as $a) {
-    		$data['menu'] = $a;
-        	$a = $this->m_menu->insert($data);
-    	}
+    	$a = $this->m_menu->insert();
 
     	if($a) {
-    		$this->session->set_flashdata('success', 'data successfully added');
+    		$this->session->set_flashdata('success', 'menu successfully set');
     		redirect(site_url('menu'));
     	} else {
-    		$this->session->set_flashdata('fail', 'done bos');
+    		$this->session->set_flashdata('fail', 'something wrong when proccess you request, try again');
     		redirect(site_url('menu'));
     	}
     }

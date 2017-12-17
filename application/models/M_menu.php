@@ -18,20 +18,17 @@ class M_menu extends CI_Model
     	return $query->result_array();
     }
 
-    function insert($data) {
+    function insert() {
+        $this->kosongkan();
+        foreach($_POST["kat"] as $a) {
+            $data['menu'] = $a;
+            $this->db->insert($this->table, $data);
+        }
+        return true;
+    }
 
-        $this->db->where('menu',$data['menu']);
-	   	$q = $this->db->get($this->table);
-
-		if ( $q->num_rows() > 0 ) {
-	      $this->db->where('menu',$data['menu']);
-	      $this->db->delete($this->table);
-	      return true;
-		} else {
-	      $this->db->set('menu', $data['menu']);
-	      $this->db->insert($this->table,$data);
-	      return true;
-	   }
+    function kosongkan() {
+        $this->db->empty_table('menus');
     }
 
     function delete($id) {

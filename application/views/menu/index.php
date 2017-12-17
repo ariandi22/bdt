@@ -52,6 +52,7 @@
                 	<?php foreach($kategori as $obj) { ?>
                     <div class="checkbox">
 					  <label><input type="checkbox" name="ck" class="cekbox" value="<?= $obj->category ?>"><?= $obj->category ?></label>
+            <input type="hidden" name="slug" id="slug" value="<?= $obj->slug?>">
 					</div>
 					<?php } ?>
 
@@ -76,7 +77,8 @@
 
     				<ul id="draggable-menu" class="menu">
     					<?php foreach($menu as $a) { ?>
-    					<li class="item list-group-item"><?= $a['menu'] ?> <span class="remove pull-right">x</span><input type="hidden" name="kat[]" value="<?= $a['menu'] ?>"></li>
+    					<li class="item list-group-item"><?= $a['menu'] ?> <span class="remove pull-right">x</span><input type="hidden" name="kat[]" value="<?= $a['menu'] ?>">
+              </li>
     					<?php } ?>
 					</ul>
 

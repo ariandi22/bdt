@@ -120,7 +120,7 @@
                     ajax: {"url": "<?= base_url('pages/json') ?>", "type": "POST"},
                     columns: [
                         {
-                            "data": "id_post",
+                            "data": "id_pages",
                             "orderable": false
                         },{"data": "title"},{"data": "category"},{"data": "status"},{"data": "created_at"},
                         {
