@@ -23,19 +23,21 @@
         		</div>
         		<div class="panel-body">
         			<ul>
-        			<li class="Commerces"><a href=""><i class="fa fa-edit"></i> Add Products</a></li>
-        			<li class="Commerces"><a href=""><i class="fa fa-cart-plus"></i> New Order <small class="label label-danger">2</small></a></li>
-        			<li class="Commerces"><a href=""><i class="fa fa-question-circle-o"></i> Confirm</a></li>
-        			<li class="Commerces"><a href=""><i class="fa fa-check-square-o"></i> Well Done</a></li>
+        			<li class="commerces"><a href=""><i class="fa fa-edit"></i> Add Products</a></li>
+        			<li class="commerces"><a href="<?= base_url('commerce/showneworder') ?>"><i class="fa fa-cart-plus"></i> New Order <small class="label label-danger">2</small></a></li>
+        			<li class="commerces"><a href=""><i class="fa fa-question-circle-o"></i> Confirm</a></li>
+        			<li class="commerces"><a href=""><i class="fa fa-check-square-o"></i> Well Done</a></li>
         			<br>
-        			<li class="commerces"><a href=""><i class="fa fa-gear"></i> Settings</a></li>
+        			<li class="commerces"><a href="<?= base_url('commerce/showsettings') ?>"><i class="fa fa-gear"></i> Settings</a></li>
         			</ul>
         		</div>
         	</div>
         </div>
 
         <div class="col-md-9">
-        	<div class="panel panel-default">
+
+            <div id="app-control">
+        	<div class="panel panel-default pnl">
         		<div class="panel-heading">
         			<h3 class="panel-title">All Product</h3>
         		</div>
@@ -71,6 +73,22 @@
         		</div>
         	</div>
         </div>
+    </div> <!-- app control -->
 
     </div>
 </div>
+
+<script type="text/javascript">
+    $('.commerces a').click(function(e){
+        var link = $(this).attr('href');
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url:link,
+            success:function(html){
+                $('.pnl').remove();
+                $('#app-control').append(html);
+            }
+        });
+    })
+</script>

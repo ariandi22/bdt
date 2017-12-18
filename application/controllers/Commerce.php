@@ -21,6 +21,30 @@ class Commerce extends CI_Controller {
 		$data['content'] = 'commerce/index';
 		$this->load->view('layout/backend', $data);
 	}
+
+    public function showSettings() {
+        $data =    '<div class="panel panel-default pnl">
+                    <div class="panel-heading">
+                    <h3 class="panel-title">Settings</h3>
+                    </div>
+                    <div class="panel-body">
+                    <small>edit your settings here</small>
+                    </div>
+                    </div>';
+        echo $data;
+    }
+
+    public function showNewOrder() {
+        $data =    '<div class="panel panel-default pnl">
+                    <div class="panel-heading">
+                    <h3 class="panel-title">New Order</h3>
+                    </div>
+                    <div class="panel-body">
+                    <small>manage this new order</small>
+                    </div>
+                    </div>';
+        echo $data;
+    }
 }
 
 ?>
