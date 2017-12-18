@@ -23,11 +23,7 @@
                     </li>
 
                     <li>
-                        <a href="tables.html"><i class="fa fa-fw fa-shopping-basket"></i> Packet</a>
-                    </li>
-
-                    <li>
-                        <a href="forms.html"><i class="fa fa-fw fa-shopping-cart"></i> Order Baru <small class="label label-danger">2</small></a>
+                        <a href="<?= base_url('commerce/index') ?>"><i class="fa fa-fw fa-shopping-basket"></i> e-Commerce</a>
                     </li>
 
                     <li>

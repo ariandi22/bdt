@@ -326,3 +326,13 @@ ul > .item {
 .remove {
     cursor: pointer;
 }
+
+/*commerces page*/
+.panel-body li {
+    margin-bottom: 7px;
+}
+.panel-body ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
