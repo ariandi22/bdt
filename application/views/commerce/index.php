@@ -1,9 +1,10 @@
+
 <div class="container-fluid" style="min-height: 600px;">
 	<div class="row">
 
         <div class="col-lg-12">
             <h3 class="page-header">
-                <i class="fa fa fa-shopping-cart"></i> Commerces 
+                <i class="fa fa fa-shopping-cart"></i> Commerce
             </h3>
                 <ol class="breadcrumb">
                     <li>
@@ -39,7 +40,7 @@
         			<h3 class="panel-title">All Product</h3>
         		</div>
         		<div class="panel-body">
-        			<table class="table">
+        			<table class="table table-condensed">
         				<thead>
         					<tr>
         						<th>Product Name</th>
@@ -57,6 +58,14 @@
         							edit | view | delete
         						</td>
         					</tr>
+                            <tr>
+                                <td>Macbook Pro 13 Mid 2009</td>
+                                <td>PC/Laptop</td>
+                                <td>active</td>
+                                <td>
+                                    edit | view | delete
+                                </td>
+                            </tr>
         				</tbody>
         			</table>
         		</div>

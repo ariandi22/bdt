@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app>
 
 <head>
 
@@ -27,6 +27,8 @@
     <script src="<?= base_url() ?>assets/editor/tinymce.min.js"></script>
     <!-- tinymce selector field -->
     <script src="<?= base_url() ?>assets/editor/selector.js"></script>
+    <!-- angularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
