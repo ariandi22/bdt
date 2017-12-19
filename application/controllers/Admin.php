@@ -211,56 +211,6 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function _rules() {
-		$this->form_validation->set_rules('userfile', 'icon', 'callback_filecek');
-
-		$this->form_validation->set_rules('id', 'id', 'trim');
-		$this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
-    }
-
-    public function filecek ($str) {
-    	
-        $allowed_mime_type_arr = array('image/gif','image/jpeg','image/pjpeg','image/png','image/x-png');
-        $mime = get_mime_by_extension($_FILES['userfile']['name']);
-        if(isset($_FILES['userfile']['name']) && $_FILES['userfile']['name']!=""){
-            if(!in_array($mime, $allowed_mime_type_arr)){
-            	$this->form_validation->set_message('filecek', 'Please select only gif/jpg/png file.');
-                return false;
-            } else if($_FILES['userfile']['size'] < 2000) {
-                $this->form_validation->set_message('filecek', 'file too large, only 2MB are allowed');
-                return false;
-            } else {
-            	return true;
-            }
-        } 
-        else{
-            $this->form_validation->set_message('filecek', 'Please choose a foto to upload.');
-            return false;
-        }
-
-    }
-
-    public function filecek_up ($str) {
-        
-        $allowed_mime_type_arr = array('image/gif','image/jpeg','image/pjpeg','image/png','image/x-png');
-        $mime = get_mime_by_extension($_FILES['userfile']['name']);
-        if(isset($_FILES['userfile']['name']) && $_FILES['userfile']['name']!=""){
-            if(!in_array($mime, $allowed_mime_type_arr)){
-                $this->form_validation->set_message('filecek_up', 'Please select only gif/jpg/png file.');
-                return false;
-            } else if($_FILES['userfile']['size'] < 2000) {
-                $this->form_validation->set_message('filecek_up', 'file too large, only 2MB are allowed');
-                return false;
-            } else {
-                return true;
-            }
-        } 
-        else{
-            return true;
-        }
-
-    }
-
     // ICON HANDLE
 
     public function create_icon() 
@@ -278,7 +228,7 @@ class Admin extends CI_Controller {
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
-            $this->create_logo();
+            $this->create_icon();
         } else {
 
         // check directory if available
@@ -319,12 +269,12 @@ class Admin extends CI_Controller {
         $config['source_image'] = $upload_data["file_path"].$upload_data['file_name'];
         $config['create_thumb'] = TRUE;
         $config['maintain_ratio'] = TRUE;
-        $config['width']         = 32;
-        $config['height']       = 32;
+        $config['width']         = 500;
+        $config['height']       = 500;
 
         $this->load->library('image_lib', $config);
 
-        $this->image_lib->crop();
+        $this->image_lib->resize();
 
         $hapus = $upload_data["file_path"].$upload_data['file_name'];
         unlink($hapus); 
@@ -355,6 +305,57 @@ class Admin extends CI_Controller {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('admin/list_header'));
         }
+    }
+
+    // _rules
+    public function _rules() {
+        $this->form_validation->set_rules('userfile', 'icon', 'callback_filecek');
+
+        $this->form_validation->set_rules('id', 'id', 'trim');
+        $this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
+    }
+
+    public function filecek ($str) {
+        
+        $allowed_mime_type_arr = array('image/gif','image/jpeg','image/pjpeg','image/png','image/x-png');
+        $mime = get_mime_by_extension($_FILES['userfile']['name']);
+        if(isset($_FILES['userfile']['name']) && $_FILES['userfile']['name']!=""){
+            if(!in_array($mime, $allowed_mime_type_arr)){
+                $this->form_validation->set_message('filecek', 'Please select only gif/jpg/png file.');
+                return false;
+            } else if($_FILES['userfile']['size'] < 2000) {
+                $this->form_validation->set_message('filecek', 'file too large, only 2MB are allowed');
+                return false;
+            } else {
+                return true;
+            }
+        } 
+        else{
+            $this->form_validation->set_message('filecek', 'Please choose a foto to upload.');
+            return false;
+        }
+
+    }
+
+    public function filecek_up ($str) {
+        
+        $allowed_mime_type_arr = array('image/gif','image/jpeg','image/pjpeg','image/png','image/x-png');
+        $mime = get_mime_by_extension($_FILES['userfile']['name']);
+        if(isset($_FILES['userfile']['name']) && $_FILES['userfile']['name']!=""){
+            if(!in_array($mime, $allowed_mime_type_arr)){
+                $this->form_validation->set_message('filecek_up', 'Please select only gif/jpg/png file.');
+                return false;
+            } else if($_FILES['userfile']['size'] < 2000) {
+                $this->form_validation->set_message('filecek_up', 'file too large, only 2MB are allowed');
+                return false;
+            } else {
+                return true;
+            }
+        } 
+        else{
+            return true;
+        }
+
     }
  
  }

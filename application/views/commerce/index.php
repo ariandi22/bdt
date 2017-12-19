@@ -23,12 +23,13 @@
         		</div>
         		<div class="panel-body">
         			<ul>
-        			<li class="commerces"><a href=""><i class="fa fa-edit"></i> Add Products</a></li>
-        			<li class="commerces"><a href="<?= base_url('commerce/showneworder') ?>"><i class="fa fa-cart-plus"></i> New Order <small class="label label-danger">2</small></a></li>
-        			<li class="commerces"><a href=""><i class="fa fa-question-circle-o"></i> Confirm</a></li>
-        			<li class="commerces"><a href=""><i class="fa fa-check-square-o"></i> Well Done</a></li>
+                    <li class="a"><a href="<?= base_url('commerce/index') ?>"><i class="fa fa-list"></i> List Products</a></li>
+        			<li class="handling"><a href="<?= site_url('commerce/showaddproducts'); ?>"><i class="fa fa-edit"></i> Add Products</a></li>
+        			<li class="handling"><a href="<?= site_url('commerce/showneworder') ?>"><i class="fa fa-cart-plus"></i> New Order <small class="label label-danger">2</small></a></li>
+        			<li class="handling"><a href="<?= site_url('commerce/showprocessed') ?>"><i class="fa fa-question-circle-o"></i> Processed</a></li>
+        			<li class="handling"><a href="<?= site_url('commerce/showdone') ?>"><i class="fa fa-check-square-o"></i> Well Done</a></li>
         			<br>
-        			<li class="commerces"><a href="<?= base_url('commerce/showsettings') ?>"><i class="fa fa-gear"></i> Settings</a></li>
+        			<li class="handling"><a href="<?= site_url('commerce/showsettings') ?>"><i class="fa fa-gear"></i> Settings</a></li>
         			</ul>
         		</div>
         	</div>
@@ -70,6 +71,7 @@
                             </tr>
         				</tbody>
         			</table>
+
         		</div>
         	</div>
         </div>
@@ -79,16 +81,11 @@
 </div>
 
 <script type="text/javascript">
-    $('.commerces a').click(function(e){
+
+    $('.handling a').click(function(e){
         var link = $(this).attr('href');
         e.preventDefault();
-        $.ajax({
-            type:'POST',
-            url:link,
-            success:function(html){
-                $('.pnl').remove();
-                $('#app-control').append(html);
-            }
-        });
+        $('.pnl').remove();
+        $('#app-control').load(link);
     })
 </script>

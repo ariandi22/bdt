@@ -26,7 +26,7 @@
     <!-- tinyMce -->
     <script src="<?= base_url() ?>assets/editor/tinymce.min.js"></script>
     <!-- tinymce selector field -->
-    <script src="<?= base_url() ?>assets/editor/selector.js"></script>
+    <!-- <script src="<?= base_url() ?>assets/editor/selector.js"></script> -->
     <!-- angularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
 

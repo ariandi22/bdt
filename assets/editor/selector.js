@@ -1,4 +1,4 @@
-var base_url='http://localhost/gdt/';
+var base_url='http://localhost/bdt';
 tinymce.init({
   selector: '.editor',
   height: 350,
@@ -11,7 +11,7 @@ tinymce.init({
   toolbar: 'insert | undo redo |  formatselect | bold italic image link | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
   file_browser_callback: function(field, url, type, win) {
         tinyMCE.activeEditor.windowManager.open({
-            file: ''+base_url+'assets/kcfinder/browse.php?opener=tinymce4&field=' + field + '&type=' + type,
+            file: ''+base_url+'/assets/kcfinder/browse.php?opener=tinymce4&field=' + field + '&type=' + type,
             title: 'File Library',
             width: 700,
             height: 500,

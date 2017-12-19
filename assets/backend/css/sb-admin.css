@@ -327,7 +327,7 @@ ul > .item {
     cursor: pointer;
 }
 
-/*commerces page*/
+/*handling page*/
 .panel-body li {
     margin-bottom: 7px;
 }
@@ -336,9 +336,14 @@ ul > .item {
     padding: 0;
     margin: 0;
 }
-.commerces a {
+.handling a {
     text-decoration: none;
 }
 table {
     font-size: 13px!important;
+}
+
+/*table head*/
+.t-head {
+    background-color: #999;
 }

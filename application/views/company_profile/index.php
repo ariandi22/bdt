@@ -88,7 +88,7 @@
                     </div>
 
                     <div class="col-lg-6">
-                        <h4>Favicon <!-- <?php echo anchor(site_url('admin/create_icon'), '+ add', 'class="btn btn-primary btn-xs"'); ?> --></h4>
+                        <h4>Favicon <?php echo anchor(site_url('admin/create_icon'), '+ add', 'class="btn btn-primary btn-xs"'); ?></h4>
                         <div class="table-responsive">
                             <table class="table table-hover table-striped">
                                 <tbody>

@@ -22,6 +22,30 @@ class Commerce extends CI_Controller {
 		$this->load->view('layout/backend', $data);
 	}
 
+    public function showaddproducts() {
+        $this->load->view('commerce/addproducts');
+    }
+
+    public function showNewOrder() {
+        $this->load->view('commerce/neworder.php');
+    }
+
+    public function showProcessed() {
+        $this->load->view('commerce/processed');
+    }
+
+    public function showdone() {
+        $data =    '<div class="panel panel-default pnl">
+                    <div class="panel-heading">
+                    <h3 class="panel-title">Complete Transaction</h3>
+                    </div>
+                    <div class="panel-body">
+                    <small>manage this new order</small>
+                    </div>
+                    </div>';
+        echo $data;
+    }
+
     public function showSettings() {
         $data =    '<div class="panel panel-default pnl">
                     <div class="panel-heading">
@@ -29,18 +53,6 @@ class Commerce extends CI_Controller {
                     </div>
                     <div class="panel-body">
                     <small>edit your settings here</small>
-                    </div>
-                    </div>';
-        echo $data;
-    }
-
-    public function showNewOrder() {
-        $data =    '<div class="panel panel-default pnl">
-                    <div class="panel-heading">
-                    <h3 class="panel-title">New Order</h3>
-                    </div>
-                    <div class="panel-body">
-                    <small>manage this new order</small>
                     </div>
                     </div>';
         echo $data;
