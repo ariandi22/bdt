@@ -30,13 +30,13 @@
         			<li class="handling"><a href="<?= site_url('commerce/showdone') ?>"><i class="fa fa-check-square-o"></i> Well Done</a></li>
         			<br>
         			<li class="handling"><a href="<?= site_url('commerce/showsettings') ?>"><i class="fa fa-gear"></i> Settings</a></li>
+                    <li class="handling"><a href="//fontawesoe.io"><i class="fa fa-gear"></i> Test</a></li>
         			</ul>
         		</div>
         	</div>
         </div>
 
         <div class="col-md-9">
-
             <div id="app-control">
         	<div class="panel panel-default pnl">
         		<div class="panel-heading">
@@ -83,9 +83,12 @@
 <script type="text/javascript">
 
     $('.handling a').click(function(e){
+        $('#app-control').html('<span class="loading-animation">loading..</span>');
         var link = $(this).attr('href');
         e.preventDefault();
         $('.pnl').remove();
-        $('#app-control').load(link);
+        $('#app-control').load(link, function(){
+            $('.loading-animation').hide();
+        });
     })
 </script>

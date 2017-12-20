@@ -43,6 +43,6 @@
         
     </div>
     <div class="panel-footer text-right">
-      <button type="submit" class="btn btn-primary btn-sm">add</button>
+      <button type="submit" class="btn btn-primary btn-sm">Process</button>
     </div>
 </div>

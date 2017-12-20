@@ -3,6 +3,12 @@
         <h3 class="panel-title">New Orders</h3>
     </div>
     <div class="panel-body">
+    		<select class="select-style">
+        		<option selected="selected" disabled>--action--</option>
+        		<option>approve</option>
+        		<option>reject</option>
+        	</select>
+
         <table class="table table-condensed">
         	<thead>
         		<tr>
@@ -20,7 +26,7 @@
         			<td>12/des/17</td>
         			<td>Active</td>
         			<td>
-        				edit | reject | approve
+        				edit
         			</td>
         		</tr>
                 <tr>
@@ -29,7 +35,7 @@
                     <td>13/des/17</td>
                     <td>active</td>
                     <td>
-                        edit | reject | approve
+                        edit
                     </td>
                 </tr>
         	</tbody>
