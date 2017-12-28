@@ -42,6 +42,9 @@
 
     <div class="row">
         <div class="col-md-9">
+            <?php if(!empty(validation_errors())) { ?>
+            <div class="alert alert-warning">Error! please fix your input below<br></div>
+            <?php } ?>
             <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
         	    <div class="form-group">
                     <label for="varchar">Title <?php echo form_error('title') ?></label>
@@ -49,8 +52,9 @@
                 </div>
                 <div class="form-group">
                     <label for="lang">Language</label><br>
-                    <select class="select-style" name="lang" id="lang">
-                        <option selected="selected">ID</option>
+                    <select class="selectpicker" name="lang" id="lang">
+                        <option selected="selected" disabled>-- choose one --</option>
+                        <option>ID</option>
                         <option>EN</option>
                     </select>
                 </div>
@@ -89,14 +93,14 @@
                     <p class="p-info text-info"><i class="fa fa-info-circle"></i> by default, pages would saved to active. Don't check it if your want make this pages visible for public</p>
                 </div>
                 <div class="panel-footer text-right">
-                    <button type="submit" class="btn btn-primary btn-sm"><?php echo $button ?></button> 
                     <a href="<?php echo site_url('pages') ?>" class="btn btn-default btn-sm">Cancel</a>
+                    <button type="submit" class="btn btn-primary btn-sm"><?php echo $button ?></button> 
                 </div>
             </div>
 
         </form>
 
-            <form id="kategori" method="post" action="<?= base_url('pages/addcategory') ?>">
+            <form id="kategori" method="post" action="">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title"><i class="fa fa-folder"></i> Add Category</h3>
@@ -104,7 +108,8 @@
 
                 <div class="panel-body">
                     <div class="form-group">
-                        <select id="ms" class="select-style">
+
+                        <select id="ms" class="selectpicker form-control" data-live-search="true">
                             <?php if($button == 'Update') { ?>
                                 <option value="<?= $category ?>" selected="selected"><?= $category ?></option>
 
@@ -115,12 +120,11 @@
                                 <?php } ?>
 
                             <?php } else { ?>
-                                <option disabled selected>--select--</option>
+                                <option selected="selected" disabled>--select--</option>
                                 <?php foreach($kategori as $obj) { ?>
                                 <option class="old" value="<?= $obj->category ?>"><?= $obj->category ?></option>
                                 <?php } ?>
                             <?php } ?>
-
                         </select>
                     </div>
                     <div class="form-group">
@@ -129,14 +133,48 @@
                 </div>
                 <div class="panel-footer">
                     <div class="text-right">
+                        <small class="text-info" data-toggle="collapse" data-target="#more" style="cursor: pointer;">manage category</small>&nbsp&nbsp
                         <button id="submit" type="submit" class="btn btn-primary btn-sm">add</button>
-                        <button id="loading" class="btn btn-primary btn-sm" style="display: none">
+                        <button id="loading" class="btn btn-primary btn-sm" style="display: none;">
                             <i class="fa fa-spinner fa-spin"></i> adding..
                         </button>
                     </div>
                 </div>
             </div>
             </form>
+
+            <div id="more" class="collapse">
+                <form method="post" action="<?= base_url('pages/deletecategory') ?>">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <small class="text-info">Multiple delete are supported</small>
+                        <div class="form-group">
+                        <select name="category_del[]" class="selectpicker form-control" data-live-search="true" multiple>
+                            <?php if($button == 'Update') { ?>
+                                <option value="<?= $category ?>" selected="selected"><?= $category ?></option>
+
+                                <?php foreach($kategori as $obj) { ?>
+                                <?php if($category != $obj->category) { ?>
+                                <option class="old2" value="<?= $obj->category ?>"><?= $obj->category ?></option>
+                                <?php } ?>
+                                <?php } ?>
+
+                            <?php } else { ?>
+                                <option disabled selected="selected">--select--</option>
+                                <?php foreach($kategori as $obj) { ?>
+                                <option class="old2" value="<?= $obj->category ?>"><?= $obj->category ?></option>
+                                <?php } ?>
+                            <?php } ?>
+                        </select>
+                        </div>
+
+                        <div class="form-group text-right">
+                            <button type="submit" class="btn btn-danger btn-sm">delete</button>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
 
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -147,6 +185,7 @@
                         <small><i class="fa fa-info-circle"></i> This will affected to meta description on detail pages.</small>
                     </div>
                     <div class="form-group">
+                        <?php echo form_error('meta_desc') ?>
                         <textarea id="meta" class="form-control" rows="4" placeholder="Meta description here"><?= $meta_desc ?></textarea>
                     </div>
                 </div>
@@ -158,6 +197,10 @@
 </div>
 
 <script type="text/javascript">
+    // select picker
+    $('.selectpicker').selectpicker({
+        dropupAuto: false,
+    });
 
     $('#ms').change(function() {
         var isi = $(this).val();
@@ -172,22 +215,21 @@
 
 <script type="text/javascript">
 
-    $('#kategori').submit(function(e) {
-
+$('#kategori').submit(function(e) {
     e.preventDefault();
     $('#submit').hide();
     $('#loading').show();
     var me = $(this);
     // perform ajax
     $.ajax({
-      url: me.attr('action'),
+      url: "<?php echo base_url('pages/addcategory') ?>",
       type: 'post',
       data: me.serialize(),
       dataType: 'json',
       success: function(res) {
         $('.old').remove();
         $.each(res, function(){
-            $("#ms").append('<option value="'+ this.category +'" selected="selected">'+ this.category +'</option>');
+            $("#ms").append('<option value="'+ this.category +'" selected="selected">'+ this.category +'</option>').selectpicker('refresh');
             $('#loading').hide();
             $('#submit').show();
             $('#tos').val('');
@@ -195,9 +237,8 @@
         });
         alert('category successfully added');
       }
-
     });
-  });
+});
 </script>
 
 <script type="text/javascript">

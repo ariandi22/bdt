@@ -45,6 +45,11 @@ class M_pages extends CI_Model
     	$this->db->insert($table, $data);
     	return true;
     }
+    function del_category($data) {
+        $this->db->where('category', $data);
+        $this->db->delete('category');
+        return true;
+    }
 
     // get all
     function get_all()

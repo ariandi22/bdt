@@ -16,6 +16,30 @@
                 </ol>
         </div>
 
+        <div class="col-md-12">
+                        <?php 
+                          if($this->session->flashdata('success') != null)
+                                {
+                                    ?>
+                                    <div class="alert alert-success alert-dismissable">
+                                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                      <?php echo $this->session->flashdata('success'); ?>
+                                    </div>
+                                    <?php
+                                }
+                            if($this->session->flashdata('fail') != null)
+                                {
+                                  ?>
+                                    <div class="alert alert-danger alert-dismissable">
+                                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                      <?php echo $this->session->flashdata('fail'); ?>
+                                    </div>
+                                    <?php
+                                }
+
+                        ; ?>
+                    </div>
+
         <div class="col-md-3">
         	<div class="panel panel-default">
         		<div class="panel-heading">
@@ -24,10 +48,17 @@
         		<div class="panel-body">
         			<ul>
                     <li class="a"><a href="<?= base_url('commerce/index') ?>"><i class="fa fa-list"></i> List Products</a></li>
+
         			<li class="handling"><a href="<?= site_url('commerce/showaddproducts'); ?>"><i class="fa fa-edit"></i> Add Products</a></li>
+
+                    <li class="handling"><a href="<?= site_url('commerce/showaddcategory'); ?>"><i class="fa fa-folder-o"></i> Manage Category</a></li>
+
         			<li class="handling"><a href="<?= site_url('commerce/showneworder') ?>"><i class="fa fa-cart-plus"></i> New Order <small class="label label-danger">2</small></a></li>
+
         			<li class="handling"><a href="<?= site_url('commerce/showprocessed') ?>"><i class="fa fa-question-circle-o"></i> Processed</a></li>
+
         			<li class="handling"><a href="<?= site_url('commerce/showdone') ?>"><i class="fa fa-check-square-o"></i> Well Done</a></li>
+
         			<br>
         			<li class="handling"><a href="<?= site_url('commerce/showsettings') ?>"><i class="fa fa-gear"></i> Settings</a></li>
                     <li class="handling"><a href="//fontawesoe.io"><i class="fa fa-gear"></i> Test</a></li>
@@ -46,6 +77,7 @@
         			<table class="table table-condensed">
         				<thead>
         					<tr>
+                                <th>Picture</th>
         						<th>Product Name</th>
         						<th>Category</th>
         						<th>Status</th>
@@ -53,28 +85,24 @@
         					</tr>
         				</thead>
         				<tbody>
+                            <?php foreach($allproducts as $a) { ?>
         					<tr>
-        						<td>Macbook Pro 13 Mid 2009</td>
-        						<td>PC/Laptop</td>
-        						<td>Active</td>
+                                <td style="width: 70px;">
+                                    <img src="<?= base_url().$a['path']?>" class="img-responsive">
+                                </td>
+        						<td><?= $a['name'] ?></td>
+        						<td><?= $a['category'] ?></td>
+        						<td><?= $a['quantity']?></td>
         						<td>
         							edit | view | delete
         						</td>
         					</tr>
-                            <tr>
-                                <td>Macbook Pro 13 Mid 2009</td>
-                                <td>PC/Laptop</td>
-                                <td>active</td>
-                                <td>
-                                    edit | view | delete
-                                </td>
-                            </tr>
+                            <?php } ?>
         				</tbody>
         			</table>
 
         		</div>
         	</div>
-        </div>
     </div> <!-- app control -->
 
     </div>

@@ -42,6 +42,18 @@ class Pages extends CI_Controller {
     	}
     }
 
+    public function deletecategory() {
+        $report = '';
+        foreach ($_POST['category_del'] as $b) {
+            if ($this->m_pages->del_category($b)) {
+               $report .= true; 
+            }
+            if($report == true) {
+                $this->getCategory();
+            }
+        }
+    }
+
     public function read($id) 
     {
         $row = $this->m_pages->get_by_id($id);

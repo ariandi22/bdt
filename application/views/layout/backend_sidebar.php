@@ -19,7 +19,7 @@
                     </li>
                     
                     <li>
-                        <a href="tables.html"><i class="fa fa-fw fa-file-photo-o"></i> Media</a>
+                        <a href="tables.html"><i class="fa fa-fw fa-file-photo-o"></i> Media Manager</a>
                     </li>
 
                     <li>

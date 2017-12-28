@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <link rel="icon" type="image/png" href="<?= base_url().$this->icon['img']?>" sizes="48x48">
 
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>BigCMS - By Bigkiadi Projects</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?= base_url()?>assets/backend/css/bootstrap.min.css" rel="stylesheet">
@@ -18,6 +18,8 @@
     <link href="<?= base_url()?>assets/backend/css/sb-admin.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- bootsrap select -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css"/>
 
     <!-- jQuery -->
     <script src="<?= base_url()?>assets/backend/js/jquery.js"></script>
@@ -27,6 +29,8 @@
     <script src="<?= base_url() ?>assets/editor/tinymce.min.js"></script>
     <!-- tinymce selector field -->
     <!-- <script src="<?= base_url() ?>assets/editor/selector.js"></script> -->
+    <!-- bootstrap select -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
     <!-- angularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
 
