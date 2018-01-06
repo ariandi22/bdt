@@ -9,7 +9,7 @@ class Migration_Pages extends CI_Migration {
                 $this->dbforge->add_field(array(
                         'id_pages' => array(
                                 'type' => 'INT',
-                                'constraint' => 5,
+                                'constraint' => 110,
                                 'unsigned' => TRUE,
                                 'auto_increment' => TRUE
                         ),
@@ -29,8 +29,8 @@ class Migration_Pages extends CI_Migration {
                             'constraint' => '160',
                         ),
                         'category' => array(
-                            'type' => 'VARCHAR',
-                            'constraint' => '255',
+                            'type' => 'INT',
+                            'constraint' => 110,
                         ),
                         'slug' => array(
                             'type' => 'VARCHAR',
@@ -49,6 +49,7 @@ class Migration_Pages extends CI_Migration {
                             'type' => 'VARCHAR',
                             'constraint' => '255',
                         ),
+                        'CONSTRAINT FOREIGN KEY (category) REFERENCES category(id_category)',
                 ));
                 $this->dbforge->add_key('id_pages', TRUE);
                 $this->dbforge->create_table('pages');

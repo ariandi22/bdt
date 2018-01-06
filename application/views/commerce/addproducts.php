@@ -4,8 +4,8 @@
         }
 
         .prv {
-            height: 120px;
-            width: 190px;
+            width: 145px;
+            height: auto;
         }
 </style>
 
@@ -35,8 +35,9 @@
             <label>Category</label>
             <select name="category" class="selectpicker form-control">
               <option selected="selected" disabled>--select--</option>
-              <option>West Tour</option>
-              <option>North Tour</option>
+              <?php foreach($cat as $a) { ?>
+              <option><?= $a['category_products'] ?></option>
+              <?php } ?>
             </select>
         </div>
 
@@ -87,19 +88,18 @@
 
 $(document).ready(function(){
         var i = 0;
-        var n = $("#dynamic_table_field tr").length;
-        if (n <=5) {
         $("#add_more_img").click(function(e){
             i++;
+            if (i <= 3) {
             $("#dynamic_table_field").append('<tr id=row'+i+'><td><button name="remove" id="'+i
             +'" class="btn btn-danger btn-sm btn-remove">X</button></td><td><input type="file" onchange="myfn(this)" name="userfile'+i+'" id="event_images'+i
             +'" data-panelid="event_images'+i+'" class="form-control images_list" accept="image/gif, image/png, image/jpeg, image/pjpeg" />'
             +'</td><td id="img_preview_td"><img class="prv" id="img_preview'+i+'" /></td></tr>');
-        e.preventDefault();
+            } else {
+              alert('your setting is limitied to 3 image to upload');
+            }
+            e.preventDefault();
         });
-        } else {
-          alert('limit boos');
-        }
 
         $(document).on("click",".btn-remove",function(){
              var button_id = $(this).attr("id");

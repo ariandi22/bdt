@@ -1,3 +1,9 @@
+<style type="text/css">
+.aksi a {
+    font-size: 13px;
+    color: #333;
+}
+</style>
 
 <div class="container-fluid" style="min-height: 600px;">
 	<div class="row">
@@ -80,7 +86,7 @@
                                 <th>Picture</th>
         						<th>Product Name</th>
         						<th>Category</th>
-        						<th>Status</th>
+        						<th>Lang</th>
         						<th>Action</th>
         					</tr>
         				</thead>
@@ -92,9 +98,10 @@
                                 </td>
         						<td><?= $a['name'] ?></td>
         						<td><?= $a['category'] ?></td>
-        						<td><?= $a['quantity']?></td>
-        						<td>
-        							edit | view | delete
+        						<td><?= $a['lang']?></td>
+        						<td class="aksi">
+                                    <a class="btn btn-default btn-sm" href="<?= base_url('commerce/update') ?>"><i class="fa fa-edit"></i></a>
+                                    <a class="btn btn-default btn-sm" href="<?= base_url('commerce/deleteproducts').'/'.$a['id_product'] ?>"><i class="fa fa-trash"></i></a>
         						</td>
         					</tr>
                             <?php } ?>

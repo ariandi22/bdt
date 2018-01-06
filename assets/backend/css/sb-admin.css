@@ -353,9 +353,9 @@ table {
 }
 
 /*input x*/
-.remove {
+.item .remove {
     position: absolute;
-    padding-top: 11px;
+    padding-top: 0;
     right: 20px;
     font-size: 18px;
     cursor: pointer;

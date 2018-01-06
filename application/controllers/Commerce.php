@@ -23,7 +23,8 @@ class Commerce extends CI_Controller {
 	}
 
     public function showaddproducts() {
-        $this->load->view('commerce/addproducts');
+        $data['cat'] = $this->m_commerce->getProductsCategory();
+        $this->load->view('commerce/addproducts', $data);
     }
 
     public function showNewOrder() {
@@ -156,8 +157,8 @@ class Commerce extends CI_Controller {
                 $configt['source_image'] = $upload_data["file_path"].$upload_data['file_name'];
                 $configt['create_thumb'] = TRUE;
                 $configt['maintain_ratio'] = TRUE;
-                $configt['width']         = 500;
-                $configt['height']       = 500;
+                $configt['width']         = 900;
+                $configt['height']       = 900;
 
                 $this->load->library('image_lib');
                 $this->image_lib->initialize($configt);
@@ -182,6 +183,39 @@ class Commerce extends CI_Controller {
                 $this->session->set_flashdata('success', 'data successfully saved');
                 redirect(site_url('commerce/index'));
                 }
+            } else {
+                if($this->m_commerce->insert($data)) {
+                $this->session->set_flashdata('success', 'data successfully saved');
+                redirect(site_url('commerce/index'));
+                }
+            }
+        }
+
+        public function debugger($id) {
+            $deb = $this->m_commerce->get_id_before_delete($id);
+            foreach ($deb as $a) {
+                unlink($a['path']);
+            }
+        }
+
+        public function deleteProducts($id) {
+            $row = $this->m_commerce->get_id_before_delete($id);
+
+            if ($row) {
+
+                foreach ($row as $a) {
+                    unlink($a['path']);
+                    $report = 'sukses';
+                }
+
+                if($report = 'sukses') {
+                    $this->m_commerce->delete($id);
+                    $this->session->set_flashdata('success', 'Delete Record Success');
+                    redirect(site_url('commerce'));
+                }
+            } else {
+                $this->session->set_flashdata('fail', 'Record Not Found');
+                redirect(site_url('commerce'));
             }
         }
 

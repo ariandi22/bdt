@@ -25,34 +25,39 @@
       <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-collapse" aria-expanded="false">
+          <!-- <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-collapse" aria-expanded="false">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </button>
+          </button> -->
 
           <!-- <a class="navbar-left" href="#"><img src="<?= base_url()?>assets/img/logo.jpg" width="130"></a> -->
           <?php if(isset($this->logo)) { ?>
-              <a class="navbar-left" href="index.html">
+              <a class="navbar-left" href="<?= base_url() ?>">
                 <img src="<?= base_url().$this->logo['img']?>" width="130">
               </a>
           <?php } else { ?>
-              <a class="navbar-brand" href="index.html">
+              <a class="navbar-brand" href="<?= base_url() ?>">
                 <?= "GoldenTrans"; ?>
               </a>
           <?php } ?>
         </div>
+
+        <div class="bnr">
+            <img src="<?= base_url('assets/img/logo.png')?>" width="130">
+        </div>
+
         	<!-- <div class="lang">
           	<select class="selectpicker" data-style="btn-xs" data-width="fit">
 				<option data-content=''></option>
 				<option  data-content=''></option>
 		  	</select>
 		</div> --> 
-        <div class="collapse navbar-collapse" id="menu-collapse">
+       <!--  <div class="collapse navbar-collapse" id="menu-collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Home</a></li>
+            <li><a href="<?= base_url() ?>">Home</a></li>
           </ul>
-        </div>
+        </div> -->
 
       </div>
 
@@ -74,6 +79,7 @@
 
     </nav>
 
+
 <div id="first-slider">
     <div id="carousel-example-generic" class="carousel slide carousel-fade">
         <!-- Indicators -->
@@ -86,20 +92,60 @@
 
         <div class="carousel-inner" role="listbox">
 
-            <div class="item active slide1" style="background-image: url(<?= base_url('assets/img/ba.jpg')?>);">
-              <div class="overlay"></div>
-             </div> 
+            <div class="item active" style="background-color: #5bc0de">
+              <div class="container">
+                <div class="row tengah size">
+                  <div class="col-md-4 col-xs-6">
+                    <img class="img-responsive" src="<?= base_url('assets/img/h1-fix.png')?>">
+                  </div>
+                  <div class="col-md-8 col-xs-6 padding">
+                    <h3 class="c-title">We are Tour and Travel Agency Based In yogyakarta</h3>
+                    <a href="#" class="btn btn-default btn-sm x">Learn More</a>
+                  </div>
+                </div>
+              </div>
+            </div> 
 
-            <div class="item slide2" style="background-image: url(<?= base_url()?>assets/img/bb.jpg);">
-              <div class="overlay"></div>
+            <div class="item" style="background-color: #5bc0de">
+              <div class="container">
+                <div class="row tengah size">
+                  <div class="col-md-4 col-xs-6">
+                    <img class="img-responsive" src="<?= base_url('assets/img/h2-fix.png')?>">
+                  </div>
+                  <div class="col-md-8 col-xs-6 padding">
+                    <h3 class="c-title">We do the work, you have a tour you'll never forget</h3>
+                    <a href="#" class="btn btn-default btn-sm x">Learn More</a>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div class="item slide3" style="background-image: url(<?= base_url('assets/img/bc.jpg')?>);">
-              <div class="overlay"></div>
+            <div class="item" style="background-color: #5bc0de">
+              <div class="container">
+                <div class="row tengah size">
+                  <div class="col-md-4 col-xs-6">
+                    <img class="img-responsive" src="<?= base_url('assets/img/h3-fix.png')?>">
+                  </div>
+                  <div class="col-md-8 col-xs-6 padding">
+                    <h3 class="c-title">See our package and other</h3>
+                    <a href="#" class="btn btn-default btn-sm x">See now</a>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div class="item slide4" style="background-image: url(<?= base_url('assets/img/be.jpg')?>);">
-              <div class="overlay"></div>
+            <div class="item" style="background-color: #5bc0de">
+              <div class="container">
+                <div class="row tengah size">
+                  <div class="col-md-4 col-xs-6">
+                    <img class="img-responsive" src="<?= base_url('assets/img/h4-fix.png')?>">
+                  </div>
+                  <div class="col-md-8 col-xs-6 padding">
+                    <h3 class="c-title">Want randome trip? Let's create Your own plan</h3>
+                    <a href="<?= base_url('costume_plan') ?>" class="btn btn-default btn-sm x">Let's Do it</a>
+                  </div>
+                </div>
+              </div>
             </div>
     
         </div>
@@ -116,33 +162,41 @@
       <div class="top-bottom-menu menu-atas">
         <div class="container">
           <ul class="nav">
-          <li><a href=""><i class="fa fa-tag" style="color: #5587a2"></i> Our Services</a></li>
-          <li><a href=""><i class="fa fa-car" style="color: #926AA6"></i> Car Rent</a></li>
-          <li><a href=""><i class="fa fa-building" style="color: #97d5e0"></i> Hotel</a></li>
+            <li><a href="<?= base_url() ?>"><i class="fa fa-home" style="color: #97d5e0"></i> Beranda</a></li>
+          <li><a href=""><i class="fa fa-briefcase" style="color: #5587a2"></i> Paket Wisata</a></li>
+          <li><a href="<?= base_url('costume_plan') ?>"><i class="fa fa-file-text" style="color: #926AA6"></i> Costume Plan</a></li>
+          <li><a href=""><i class="fa fa-globe" style="color: #97d5e0"></i> Objek Wisata</a></li>
           </ul>
         </div>
       </div>
 
-<div class="text-center hidden-lg hidden-md" style="padding: 2px 3px;"><div class="label label-info"><- swipe to view more -></div></div>
+<section id="regular">
+      <div class="heading text-left container">
+          <h3 class="h-title"><i class="fa fa-archive"></i> Paket Reguler</h3>
+      </div>
+
+      <div class="text-center hidden-lg hidden-md" style="padding: 2px 3px;">
+        <div class="label label-info"><- swipe to view more -></div>
+      </div>
 
     <div class="container kartu">
 
       <div class="row">
-
+        <?php foreach($regular as $a) { ?>
           <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 r-pad">
               <div class="thumbnail bg-light">
               <div class="gal-item">
               <div class="box">
-                <img class="img-responsive" src="<?= base_url()?>assets/img/ba.jpg">
+                <img class="img-responsive" src="<?= base_url().$a['path']?>">
               </div>
               </div>
                 <div class="c-body">
-                  <div class="title"><strong>East Tour</strong>
-                  <p class="pull-right"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"><i class="fa fa-star"></i><i class="fa fa-star"></i></i></p>
+                  <div class="title"><strong><?= $a['name'] ?></strong>
+                  <p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"><i class="fa fa-star"></i><i class="fa fa-star"></i></i></p>
                   </div>
 
                   <p>
-                    start from IDR 1.200.000
+                    start from IDR <?= $a['quantity'] ?>
                   </p>
                   
                   <div class="blog-date"><i class="fa fa-camera-retro fa-2x"></i></div>
@@ -150,54 +204,53 @@
                 </div>
               </div>
           </div>
-
-          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 r-pad">
-              <div class="thumbnail bg-light">
-              <div class="gal-item">
-              <div class="box">
-                <img class="img-responsive" src="<?= base_url()?>assets/img/3.jpg">
-              </div>
-              </div>
-                <div class="c-body">
-                  <div class="title"><strong>Southwest Tour</strong>
-                  <p class="pull-right"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"><i class="fa fa-star"></i><i class="fa fa-star"></i></i></p>
-                  </div>
-
-                  <p>
-                    start from IDR 1.200.000
-                  </p>
-                  
-                  <div class="blog-date"><i class="fa fa-camera-retro fa-2x"></i></div>
-                  <a href="#" class="btn btn-primary btn-xs orange">view detail</a>
-                </div>
-              </div>
-          </div>
-
-          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 r-pad">
-              <div class="thumbnail bg-light">
-              <div class="gal-item">
-              <div class="box">
-                <img class="img-responsive" src="<?= base_url()?>assets/img/bc.jpg">
-              </div>
-              </div>
-                <div class="c-body">
-                  <div class="title"><strong>Meeting On Tour</strong>
-                  <p class="pull-right"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"><i class="fa fa-star"></i><i class="fa fa-star"></i></i></p>
-                  </div>
-
-                  <p>
-                    start from IDR 1.200.000
-                  </p>
-                  
-                  <div class="blog-date"><i class="fa fa-camera-retro fa-2x"></i></div>
-                  <a href="#" class="btn btn-primary btn-xs orange">view detail</a>
-                </div>
-              </div>
-          </div>
-
+        <?php } ?>
     </div>
 
     </div>
+
+</section>
+
+<section id="premium">
+      <div class="heading text-left container">
+          <h3 class="h-title"><i class="fa fa-archive"></i> Paket Premium</h3>
+      </div>
+
+      <div class="text-center hidden-lg hidden-md" style="padding: 2px 3px;">
+        <div class="label label-info"><- geser -></div>
+      </div>
+
+    <div class="container kartu">
+
+      <div class="row">
+        <?php foreach($premium as $a) { ?>
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 r-pad">
+              <div class="thumbnail bg-light">
+              <div class="gal-item">
+              <div class="box">
+                <img class="img-responsive" src="<?= base_url().$a['path']?>">
+              </div>
+              </div>
+                <div class="c-body">
+                  <div class="title"><strong><?= $a['name'] ?></strong></div>
+
+                  <p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"><i class="fa fa-star"></i><i class="fa fa-star"></i></i></p>
+
+                  <p>
+                    start from IDR <?= $a['quantity'] ?>
+                  </p>
+                  
+                  <div class="blog-date"><i class="fa fa-camera-retro fa-2x"></i></div>
+                  <a href="#" class="btn btn-primary btn-xs orange">view detail</a>
+                </div>
+              </div>
+          </div>
+        <?php } ?>
+    </div>
+
+    </div>
+    
+</section>
 
 <footer>
     <div class="container">
@@ -217,7 +270,6 @@
 		    $('.selectpicker').selectpicker();
 		});
     </script>
-
 
   </body>
 </html>

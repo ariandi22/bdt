@@ -73,6 +73,7 @@
 			                    <th width="80px">No</th>
 							    <th>Title</th>
 							    <th>Category</th>
+                                <th>Lang</th>
 							    <th>Status</th>
 							    <th>Created At</th>
 							    <th width="200px">Action</th>
@@ -123,7 +124,7 @@
                         {
                             "data": "id_pages",
                             "orderable": false
-                        },{"data": "title"},{"data": "category"},{"data": "status"},{"data": "created_at"},
+                        },{"data": "title"},{"data": "category"},{"data": "lang"},{"data": "status"},{"data": "created_at"},
                         {
                             "data" : "action",
                             "orderable": false,

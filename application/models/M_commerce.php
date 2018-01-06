@@ -4,7 +4,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 class M_commerce extends CI_Model {
 
     public $table = 'products';
-    public $id = 'id_products';
+    public $id = 'id_product';
     public $order = 'DESC';
 
     function __construct() {
@@ -12,10 +12,10 @@ class M_commerce extends CI_Model {
     }
 
     function index() {
-    	$this->db->select('name, category, quantity, path')
+    	$this->db->select('id_product, name, lang, category, status, path')
     			 ->from($this->table)
     			 ->join('images', 'products.code_product=images.relation')
-    			 ->group_by('name');
+    			 ->group_by('id_product');
     	$query = $this->db->get();
     	return $query->result_array();
     }
@@ -24,6 +24,32 @@ class M_commerce extends CI_Model {
     function insert($data) {
         $this->db->insert($this->table, $data);
         return true;
+    }
+
+    // update data
+    function update($id, $data) {
+        $this->db->where($this->id, $id);
+        $this->db->update($this->table, $data);
+        return true;
+    }
+
+    // delete data
+    function delete($id) {
+        $this->db->where($this->id, $id);
+        $this->db->delete($this->table);
+        return true;
+    }
+    function get_id_before_delete($id) {
+        $this->db->select('id_product, path');
+        $this->db->from($this->table);
+        $this->db->join('images', 'products.code_product=images.relation');
+        $this->db->where('products.id_product', $id);
+        return $this->db->get()->result_array();
+    }
+    // get data by id
+    function get_by_id($id) {
+        $this->db->where($this->id, $id);
+        return $this->db->get($this->table)->row();
     }
 
     function insertImages($data) {

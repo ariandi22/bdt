@@ -63,8 +63,8 @@
                     <textarea class="editor" name="konten" id="konten"><?php echo $konten; ?></textarea>
                 </div>
 
-                    <input type="hidden" name="category" id="category" value="<?php echo $category; ?>" />
-                    <input type="hidden" id="metasave" name="meta_desc" value="<?= $meta_desc ?>" />
+                    <input type="text" name="category" id="category" value="<?php echo $category; ?>" />
+                    <input type="text" id="metasave" name="meta_desc" value="<?= $meta_desc ?>" />
 
                 <?php if($button == 'Update') { ?>
                 <div class="form-group">
@@ -109,20 +109,20 @@
                 <div class="panel-body">
                     <div class="form-group">
 
-                        <select id="ms" class="selectpicker form-control" data-live-search="true">
+                        <select id="ms2" class="selectpicker form-control ms" data-live-search="true">
                             <?php if($button == 'Update') { ?>
                                 <option value="<?= $category ?>" selected="selected"><?= $category ?></option>
 
                                 <?php foreach($kategori as $obj) { ?>
                                 <?php if($category != $obj->category) { ?>
-                                <option class="old" value="<?= $obj->category ?>"><?= $obj->category ?></option>
+                                <option class="old" value="<?= $obj->id_category ?>"><?= $obj->category ?></option>
                                 <?php } ?>
                                 <?php } ?>
 
                             <?php } else { ?>
                                 <option selected="selected" disabled>--select--</option>
                                 <?php foreach($kategori as $obj) { ?>
-                                <option class="old" value="<?= $obj->category ?>"><?= $obj->category ?></option>
+                                <option class="old" value="<?= $obj->id_category ?>"><?= $obj->category ?></option>
                                 <?php } ?>
                             <?php } ?>
                         </select>
@@ -144,25 +144,25 @@
             </form>
 
             <div id="more" class="collapse">
-                <form method="post" action="<?= base_url('pages/deletecategory') ?>">
+                <form id="hapus" method="post" action="">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <small class="text-info">Multiple delete are supported</small>
                         <div class="form-group">
-                        <select name="category_del[]" class="selectpicker form-control" data-live-search="true" multiple>
+                        <select name="category_del[]" class="selectpicker form-control ms" data-live-search="true" multiple>
                             <?php if($button == 'Update') { ?>
                                 <option value="<?= $category ?>" selected="selected"><?= $category ?></option>
 
                                 <?php foreach($kategori as $obj) { ?>
                                 <?php if($category != $obj->category) { ?>
-                                <option class="old2" value="<?= $obj->category ?>"><?= $obj->category ?></option>
+                                <option class="old" value="<?= $obj->id_category ?>"><?= $obj->category ?></option>
                                 <?php } ?>
                                 <?php } ?>
 
                             <?php } else { ?>
                                 <option disabled selected="selected">--select--</option>
                                 <?php foreach($kategori as $obj) { ?>
-                                <option class="old2" value="<?= $obj->category ?>"><?= $obj->category ?></option>
+                                <option class="old" value="<?= $obj->id_category ?>"><?= $obj->category ?></option>
                                 <?php } ?>
                             <?php } ?>
                         </select>
@@ -202,8 +202,8 @@
         dropupAuto: false,
     });
 
-    $('#ms').change(function() {
-        var isi = $(this).val();
+    $('#ms2').change(function() {
+        var isi = $('#ms2').val();
         $('#category').val(isi);
     });
 
@@ -229,16 +229,37 @@ $('#kategori').submit(function(e) {
       success: function(res) {
         $('.old').remove();
         $.each(res, function(){
-            $("#ms").append('<option value="'+ this.category +'" selected="selected">'+ this.category +'</option>').selectpicker('refresh');
+            $(".ms").append('<option class="old" value="'+ this.id_category +'">'+ this.category +'</option>').selectpicker('refresh');
             $('#loading').hide();
             $('#submit').show();
             $('#tos').val('');
-            $('#category').val(this.category);
+            $('#category').text(this.category);
         });
         alert('category successfully added');
       }
     });
 });
+</script>
+
+<!-- delete data -->
+<script type="text/javascript">
+    $('#hapus').on("submit", function(k){
+        var formData = $('#hapus').serialize();
+        k.preventDefault();
+        $.ajax({
+        url: "<?= base_url('pages/deletecategory') ?>",
+        type: 'post',
+        data: formData,
+        dataType: 'json',
+        success: function(ref) {
+          $('.old').remove();
+          $.each(ref, function(){
+              $(".ms").append('<option class="old" value="'+ this.id_category +'">'+ this.category +'</option>').selectpicker('refresh');
+          });
+          alert('category successfully deleted');
+        }
+      });
+    });
 </script>
 
 <script type="text/javascript">

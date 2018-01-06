@@ -48,9 +48,9 @@ class Pages extends CI_Controller {
             if ($this->m_pages->del_category($b)) {
                $report .= true; 
             }
-            if($report == true) {
-                $this->getCategory();
-            }
+        }
+        if($report == true) {
+            $this->getCategory();
         }
     }
 

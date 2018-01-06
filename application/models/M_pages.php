@@ -15,7 +15,7 @@ class M_pages extends CI_Model
 
     // datatables
     function json() {
-        $this->datatables->select('id_pages,title,content,category,status,created_by,created_at');
+        $this->datatables->select('id_pages,title,content,lang,category,status,created_by,created_at');
         $this->datatables->from('pages');
         //add this line for join
         //$this->datatables->join('table2', 'pages.field = table2.field');
@@ -24,12 +24,12 @@ class M_pages extends CI_Model
     }
 
     function getCategory() {
-    	$this->db->select('category');
+    	$this->db->select('id_category, category');
     	return $this->db->get('category')->result_array();
     }
 
     function inCategory() {
-    	$this->db->select('category');
+    	$this->db->select('*');
     	$query = $this->db->get('category');
     	return $query->result();
     }
@@ -46,7 +46,7 @@ class M_pages extends CI_Model
     	return true;
     }
     function del_category($data) {
-        $this->db->where('category', $data);
+        $this->db->where('id_category', $data);
         $this->db->delete('category');
         return true;
     }
