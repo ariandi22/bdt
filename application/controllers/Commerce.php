@@ -185,7 +185,7 @@ class Commerce extends CI_Controller {
             }
         }
 
-        // PACKAGE
+        /* PACKAGE HANDLING */
 
         public function add_package() {
             $data['allpackage'] = $this->m_commerce->all_package();
@@ -270,7 +270,7 @@ class Commerce extends CI_Controller {
                 } else {
                     unlink(isset($data_i['path']));
                     $this->session->set_flashdata('fail', 'something wrong when upload your file. try again');
-                    redirect(site_url('commerce/index'));
+                    redirect(site_url('commerce/add_package'));
                 }
             }
 
@@ -294,6 +294,7 @@ class Commerce extends CI_Controller {
         }
 
         public function edit_package() {
+
         $id = $this->input->post('id_package');
         $data['name'] = $this->input->post('packagename', TRUE);
         $data['price'] = $this->input->post('price', TRUE);
@@ -407,6 +408,225 @@ class Commerce extends CI_Controller {
             }
         }
 
+        // DESTINATION HANDLING
+
+        public function add_destination() {
+            $data['alldestination'] = $this->m_commerce->all_destination();
+
+            $data['content'] = 'destination/index';
+            $this->load->view('layout/backend', $data);
+        }
+
+        public function showadddestination() {
+            $data['cat'] = $this->m_commerce->getProductsCategory();
+            $this->load->view('destination/form_destination', $data);
+        }
+
+        public function save_destination() {
+
+        $data['name'] = $this->input->post('destinationname', TRUE);
+        $data['content'] = $this->input->post('konten', TRUE);
+        $data['code_destination'] = $this->input->post('code_destination', TRUE);
+        $data['lang'] = $this->input->post('lang', TRUE);
+        $data['category'] = $this->input->post('category', TRUE);
+
+        $slug = $this->input->post('destinationname',TRUE);
+        $data['slug'] = $this->ToSlug($slug);
+        $relation = $this->input->post('code_destination', TRUE);
+
+        // check directory if available
+        $imagePath  = './i/destination/';
+        $newpath    = '';
+        $year       = '';
+        $month      = '';
+        $path_full  = '';
+
+        $year  = date("Y");   //current year
+        
+        //check if current year directory is exist
+        if(!is_dir($imagePath.$year)) {
+            //make directory if not exist
+            mkdir($imagePath.$year, 0775, TRUE);
+        } 
+        
+        if (!file_exists($imagePath.$year.'/index.html')) {
+            
+            //create index.html to prevent browse image folder from browser
+            $createIndexHTML    = $imagePath.$year.'/index.html';
+            $handle             = fopen($createIndexHTML, 'w') or die('Cannot open file:  '.$createIndexHTML); //implicitly creates file
+        }
+
+        // image config/requirement for upload
+        $config['upload_path'] = $imagePath.$year;
+        $config['allowed_types'] = 'gif|jpg|jpeg|png';
+        $config['encrypt_name'] = TRUE;
+
+        // upload image
+        $this->load->library('upload', $config);
+        foreach ($_FILES as $key => $value) {
+            if($this->upload->do_upload($key)) {
+                $upload_data = $this->upload->data();
+
+                $configt['image_library'] = 'gd2';
+                $configt['source_image'] = $upload_data["file_path"].$upload_data['file_name'];
+                $configt['create_thumb'] = TRUE;
+                $configt['maintain_ratio'] = TRUE;
+                $configt['width']         = 900;
+                $configt['height']       = 900;
+
+                $this->load->library('image_lib');
+                $this->image_lib->initialize($configt);
+                $this->image_lib->resize();
+                // delete the original image
+                $hapus = $upload_data["file_path"].$upload_data['file_name'];
+                unlink($hapus);
+
+                $data_i['relation'] = $relation;
+                $data_i['path'] = $imagePath.$year.'/'.$upload_data['raw_name'].'_thumb'.$upload_data['file_ext'];
+                $this->m_commerce->insertImages($data_i);
+                $hasil = "success";
+                } else {
+                    unlink(isset($data_i['path']));
+                    $this->session->set_flashdata('fail', 'something wrong when upload your file. try again');
+                    redirect(site_url('commerce/add_destination'));
+                }
+            }
+
+            if($hasil == "success") {
+                if($this->m_commerce->insert_destination($data)) {
+                $this->session->set_flashdata('success', 'data successfully saved');
+                redirect(site_url('commerce/add_destination'));
+                }
+            } else {
+                if($this->m_commerce->insert_destination($data)) {
+                $this->session->set_flashdata('success', 'data successfully saved!!');
+                redirect(site_url('commerce/add_destination'));
+                }
+            }
+        }
+
+        // EDIT
+        public function showEditDestination($id) {
+            $data['edit'] = $this->m_commerce->get_destination_for_edit($id);
+            $data['img'] = $this->m_commerce->get_all_destination_images($id);
+            $data['cat'] = $this->m_commerce->getProductsCategory();
+
+            $this->load->view('destination/edit_destination', $data);
+        }
+
+        public function edit_destination() {
+            
+        $id = $this->input->post('id_destination');
+        $data['name'] = $this->input->post('destinationname', TRUE);
+        $data['content'] = $this->input->post('konten', TRUE);
+        $data['code_destination'] = $this->input->post('code_destination', TRUE);
+        $data['lang'] = $this->input->post('lang', TRUE);
+        $data['category'] = $this->input->post('category', TRUE);
+        $data['status'] = $this->input->post('status', TRUE);
+
+        $slug = $this->input->post('destinationname',TRUE);
+        $data['slug'] = $this->ToSlug($slug);
+        $relation = $this->input->post('code_destination', TRUE);
+
+        // check directory if available
+        $imagePath  = './i/destination/';
+        $newpath    = '';
+        $year       = '';
+        $month      = '';
+        $path_full  = '';
+
+        $year  = date("Y");   //current year
+        
+        //check if current year directory is exist
+        if(!is_dir($imagePath.$year)) {
+            //make directory if not exist
+            mkdir($imagePath.$year, 0775, TRUE);
+        } 
+        
+        if (!file_exists($imagePath.$year.'/index.html')) {
+            
+            //create index.html to prevent browse image folder from browser
+            $createIndexHTML    = $imagePath.$year.'/index.html';
+            $handle             = fopen($createIndexHTML, 'w') or die('Cannot open file:  '.$createIndexHTML); //implicitly creates file
+        }
+
+        // upload image
+
+         // image config/requirement for upload
+        $config['upload_path'] = $imagePath.$year;
+        $config['allowed_types'] = 'gif|jpg|jpeg|png';
+        $config['encrypt_name'] = TRUE;
+
+        $this->load->library('upload', $config);
+
+        foreach ($_FILES as $key => $value) {
+            $filesize =$_FILES[$key]["size"];
+            if($filesize != 0) {
+                if($this->upload->do_upload($key)) {
+                    $upload_data = $this->upload->data();
+
+                    $configt['image_library'] = 'gd2';
+                    $configt['source_image'] = $upload_data["file_path"].$upload_data['file_name'];
+                    $configt['create_thumb'] = TRUE;
+                    $configt['maintain_ratio'] = TRUE;
+                    $configt['width']         = 900;
+                    $configt['height']       = 900;
+
+                    $this->load->library('image_lib');
+                    $this->image_lib->initialize($configt);
+                    $this->image_lib->resize();
+                    // delete the original image
+                    $hapus = $upload_data["file_path"].$upload_data['file_name'];
+                    unlink($hapus);
+
+                    $data_i['relation'] = $relation;
+                    $data_i['path'] = $imagePath.$year.'/'.$upload_data['raw_name'].'_thumb'.$upload_data['file_ext'];
+                    $this->m_commerce->update_images_for_destination($data_i);
+                    $hasil = "success";
+                    } else {
+                        unlink($data_i['path']);
+                        $this->session->set_flashdata('fail', 'something wrong when upload your file. try again');
+                        redirect(site_url('commerce/add_destination'));
+                    }
+            }
+
+        }
+
+            if($hasil == "success") {
+                if($this->m_commerce->update_destination($id, $data)) {
+                $this->session->set_flashdata('success', 'data successfully changes!');
+                redirect(site_url('commerce/add_destination'));
+                }
+            } else {
+                $this->m_commerce->update_images_for_destination($data_i);
+                if($this->m_commerce->update_destination($id, $data)) {
+                $this->session->set_flashdata('success', 'data successfully changes!!');
+                redirect(site_url('commerce/add_destination'));
+                }
+            }
+        }
+
+        // delete
+        public function deleteDestination($id) {
+            $row = $this->m_commerce->get_destination_id_before_delete($id);
+
+            if ($row) {
+
+                foreach ($row as $a) {
+                    unlink($a['path']);
+                    $report = 'sukses';
+                }
+
+                if($report = 'sukses') {
+                    $this->m_commerce->delete_destination($id);
+                    $this->session->set_flashdata('success', 'Delete Record Success');
+                    redirect(site_url('commerce/add_destination'));
+                }
+            } else {
+                $this->session->set_flashdata('fail', 'Record Not Found');
+                redirect(site_url('commerce/add_destination'));
+            }
+        }
 
 
 

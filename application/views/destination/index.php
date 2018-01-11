@@ -10,7 +10,7 @@
 
         <div class="col-lg-12">
             <h3 class="page-header">
-                <i class="fa fa-book"></i> Package
+                <i class="fa fa-file-photo-o"></i> Destination
             </h3>
                 <ol class="breadcrumb">
                     <li>
@@ -53,9 +53,9 @@
         		</div>
         		<div class="panel-body">
         			<ul>
-                    <li class="a"><a href="<?= base_url('commerce/add_package') ?>"><i class="fa fa-list"></i> List Package</a></li>
+                    <li class="a"><a href="<?= base_url('commerce/add_destination') ?>"><i class="fa fa-list"></i> List Destination</a></li>
 
-        			<li><a class="edt" href="<?= site_url('commerce/showaddpackage'); ?>"><i class="fa fa-edit"></i> Add Package</a></li>
+        			<li><a class="edt" href="<?= site_url('commerce/showadddestination'); ?>"><i class="fa fa-edit"></i> Add Destination</a></li>
 
                     <li><a class="edt" href="<?= site_url('commerce/showaddcategory'); ?>"><i class="fa fa-folder-o"></i> Manage Category</a></li>
         			</ul>
@@ -67,21 +67,21 @@
             <div id="app-control">
         	<div class="panel panel-default pnl">
         		<div class="panel-heading">
-        			<h3 class="panel-title">All Package</h3>
+        			<h3 class="panel-title">All Destination</h3>
         		</div>
         		<div class="panel-body">
         			<table class="table table-condensed">
         				<thead>
         					<tr>
                                 <th>Picture</th>
-        						<th>Product Name</th>
+        						<th>Destination Name</th>
         						<th>Status</th>
         						<th>Lang</th>
         						<th>Action</th>
         					</tr>
         				</thead>
         				<tbody>
-                            <?php foreach($allpackage as $a) { ?>
+                            <?php foreach($alldestination as $a) { ?>
         					<tr>
                                 <td style="width: 70px;">
                                 	<?php if($a['path'] != null) { ?>
@@ -103,8 +103,8 @@
         						</td>
         						<td><?= $a['lang']?></td>
         						<td class="aksi">
-                                    <a class="btn btn-default btn-sm edt" href="<?= base_url('commerce/showEditPackage/').$a['id_package'] ?>"><i class="fa fa-edit"></i></a>
-                                    <a class="btn btn-default btn-sm" href="<?= base_url('commerce/deletepackage').'/'.$a['id_package'] ?>"><i class="fa fa-trash"></i></a>
+                                    <a class="btn btn-default btn-sm edt" href="<?= base_url('commerce/showEditDestination/').$a['id_destination'] ?>"><i class="fa fa-edit"></i></a>
+                                    <a class="btn btn-default btn-sm" href="<?= base_url('commerce/deletedestination').'/'.$a['id_destination'] ?>"><i class="fa fa-trash"></i></a>
         						</td>
         					</tr>
                             <?php } ?>

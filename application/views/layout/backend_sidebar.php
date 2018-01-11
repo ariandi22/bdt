@@ -19,7 +19,7 @@
                     </li>
 
                     <li>
-                        <a href="tables.html"><i class="fa fa-fw fa-file-photo-o"></i> Destination</a>
+                        <a href="<?= base_url('commerce/add_destination') ?>"><i class="fa fa-fw fa-file-photo-o"></i> Destination</a>
                     </li>
 
                     <li>
