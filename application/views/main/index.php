@@ -163,94 +163,85 @@
         <div class="container">
           <ul class="nav">
             <li><a href="<?= base_url() ?>"><i class="fa fa-home" style="color: #97d5e0"></i> Beranda</a></li>
-          <li><a href=""><i class="fa fa-briefcase" style="color: #5587a2"></i> Paket Wisata</a></li>
+          <li><a href="<?= base_url('tour_package') ?>"><i class="fa fa-briefcase" style="color: #5587a2"></i> Paket Wisata</a></li>
           <li><a href="<?= base_url('costume_plan') ?>"><i class="fa fa-file-text" style="color: #926AA6"></i> Costume Plan</a></li>
           <li><a href=""><i class="fa fa-globe" style="color: #97d5e0"></i> Objek Wisata</a></li>
           </ul>
         </div>
       </div>
 
-<section id="regular">
-      <div class="heading text-left container">
-          <h3 class="h-title"><i class="fa fa-archive"></i> Paket Reguler</h3>
+
+    <section id="our-services">
+
+      <div class="heading text-center container">
+          <h3 class="h-title"><i class="fa fa-table"></i> Layanan Kami</h3>
       </div>
-
-      <div class="text-center hidden-lg hidden-md" style="padding: 2px 3px;">
-        <div class="label label-info"><- swipe to view more -></div>
-      </div>
-
-    <div class="container kartu">
-
-      <div class="row">
-        <?php foreach($regular as $a) { ?>
-          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 r-pad">
-              <div class="thumbnail bg-light">
-              <div class="gal-item">
-              <div class="box">
-                <img class="img-responsive" src="<?= base_url().$a['path']?>">
-              </div>
-              </div>
-                <div class="c-body">
-                  <div class="title"><strong><?= $a['name'] ?></strong>
-                  <p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"><i class="fa fa-star"></i><i class="fa fa-star"></i></i></p>
-                  </div>
-
-                  <p>
-                    start from IDR <?= $a['quantity'] ?>
-                  </p>
-                  
-                  <div class="blog-date"><i class="fa fa-camera-retro fa-2x"></i></div>
-                  <a href="#" class="btn btn-primary btn-xs orange">view detail</a>
-                </div>
-              </div>
+      <br>
+      <div class="container">
+        <div class="row text-center">
+          <div class="col-md-4">
+            <i class="fa fa-ticket fa-4x"></i>
+            <h4><strong>Events Organizer</strong></h4>
+            <p>Dengan manajemen dan tata kelola yang baik, kami membantu anda mempersiapkan kebutuhan penyelenggaraan events anda selama berada di yogyakarta.</p>
+            <p><a href="">Pelajari lebih lanjut</a></p>
           </div>
-        <?php } ?>
-    </div>
 
-    </div>
-
-</section>
-
-<section id="premium">
-      <div class="heading text-left container">
-          <h3 class="h-title"><i class="fa fa-archive"></i> Paket Premium</h3>
-      </div>
-
-      <div class="text-center hidden-lg hidden-md" style="padding: 2px 3px;">
-        <div class="label label-info"><- geser -></div>
-      </div>
-
-    <div class="container kartu">
-
-      <div class="row">
-        <?php foreach($premium as $a) { ?>
-          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 r-pad">
-              <div class="thumbnail bg-light">
-              <div class="gal-item">
-              <div class="box">
-                <img class="img-responsive" src="<?= base_url().$a['path']?>">
-              </div>
-              </div>
-                <div class="c-body">
-                  <div class="title"><strong><?= $a['name'] ?></strong></div>
-
-                  <p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"><i class="fa fa-star"></i><i class="fa fa-star"></i></i></p>
-
-                  <p>
-                    start from IDR <?= $a['quantity'] ?>
-                  </p>
-                  
-                  <div class="blog-date"><i class="fa fa-camera-retro fa-2x"></i></div>
-                  <a href="#" class="btn btn-primary btn-xs orange">view detail</a>
-                </div>
-              </div>
+          <div class="col-md-4">
+            <i class="fa fa-camera-retro fa-4x"></i>
+            <h4><strong>Tour Guide</strong></h4>
+            <p>Kami menyediakan berbagai pilihan paket dan layanan perjalanan dan wisata ke berbagai destinasi menarik dan populer di yogyakarta.</p>
+            <p><a href="">Pelajari lebih lanjut</a></p>
           </div>
-        <?php } ?>
-    </div>
 
-    </div>
-    
-</section>
+          <div class="col-md-4">
+            <i class="fa fa-car fa-4x"></i>
+            <h4><strong>Cars Rent</strong></h4>
+            <p>Kami menyediakan pilihan moda transportasi anda selama berada di yogyakarta.</p>
+            <p><a href="">Pesan Sekarang</a></p>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+    <hr>
+    <section id="our-partner">
+      <div class="heading text-center container">
+          <h3 class="h-title"><i class="fa fa-paste"></i> Partner Kami</h3>
+      </div>
+      <br>
+      <div class="container">
+        <div class="row text-center">
+
+          <div class="col-md-3 col-sm-3 col-xs-3">
+            <img class="img-responsive text-center" src="<?= base_url('assets/img/partner/p-1.png') ?>">
+          </div>
+
+          <div class="col-md-3 col-sm-3 col-xs-3">
+            <img class="img-responsive text-center" src="<?= base_url('assets/img/partner/p-2.png') ?>">
+          </div>
+
+          <div class="col-md-3 col-sm-3 col-xs-3">
+            <img class="img-responsive text-center" src="<?= base_url('assets/img/partner/p-3.png') ?>">
+          </div>
+
+          <div class="col-md-3 col-sm-3 col-xs-3">
+            <img class="img-responsive text-center" src="<?= base_url('assets/img/partner/p-5.png') ?>" width="110">
+          </div>
+
+          <div class="col-md-3 col-sm-3 col-xs-3">
+            <img class="img-responsive text-center" src="<?= base_url('assets/img/partner/p-6.png') ?>">
+          </div>
+
+          <div class="col-md-3 col-sm-3 col-xs-3">
+            <img class="img-responsive text-center" src="<?= base_url('assets/img/partner/p-7.png') ?>">
+          </div>
+
+        </div>
+      </div>
+    </section>
+    <hr>
+
 
 <footer>
     <div class="container">

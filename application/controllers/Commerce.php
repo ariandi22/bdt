@@ -27,10 +27,6 @@ class Commerce extends CI_Controller {
         $this->load->view('commerce/addproducts', $data);
     }
 
-    public function showNewOrder() {
-        $this->load->view('commerce/neworder.php');
-    }
-
     // category handler
     public function showAddCategory() {
         $data['cat'] = $this->m_commerce->inCategory();
@@ -60,36 +56,6 @@ class Commerce extends CI_Controller {
         if($report == true) {
             $this->getProductsCategory();
         }
-    }
-
-    // end category handler
-
-    public function showProcessed() {
-        $this->load->view('commerce/processed');
-    }
-
-    public function showdone() {
-        $data =    '<div class="panel panel-default pnl">
-                    <div class="panel-heading">
-                    <h3 class="panel-title">Complete Transaction</h3>
-                    </div>
-                    <div class="panel-body">
-                    <small>manage this new order</small>
-                    </div>
-                    </div>';
-        echo $data;
-    }
-
-    public function showSettings() {
-        $data =    '<div class="panel panel-default pnl">
-                    <div class="panel-heading">
-                    <h3 class="panel-title">Settings</h3>
-                    </div>
-                    <div class="panel-body">
-                    <small>edit your settings here</small>
-                    </div>
-                    </div>';
-        echo $data;
     }
 
     // create a slug
@@ -185,7 +151,7 @@ class Commerce extends CI_Controller {
                 }
             } else {
                 if($this->m_commerce->insert($data)) {
-                $this->session->set_flashdata('success', 'data successfully saved');
+                $this->session->set_flashdata('success', 'data successfully saved!!');
                 redirect(site_url('commerce/index'));
                 }
             }
@@ -219,29 +185,230 @@ class Commerce extends CI_Controller {
             }
         }
 
-        // addd
-        public function addProducts() {
-        $data['name'] = $this->input->post('productname', TRUE);
-        $data['category'] = $this->input->post('category', TRUE);
+        // PACKAGE
+
+        public function add_package() {
+            $data['allpackage'] = $this->m_commerce->all_package();
+
+            $data['content'] = 'package/index';
+            $this->load->view('layout/backend', $data);
+        }
+
+        public function showaddpackage() {
+            $data['cat'] = $this->m_commerce->getProductsCategory();
+            $this->load->view('package/form_package', $data);
+        }
+
+        // add
+        public function save_package() {
+
+        $data['name'] = $this->input->post('packagename', TRUE);
+        $data['price'] = $this->input->post('price', TRUE);
         $data['content'] = $this->input->post('konten', TRUE);
-        $data['code_product'] = $this->input->post('code_product', TRUE);
+        $data['code_package'] = $this->input->post('code_package', TRUE);
         $data['lang'] = $this->input->post('lang', TRUE);
-        $data['quantity'] = $this->input->post('quantity', TRUE);
+        $data['tour_days'] = $this->input->post('days', TRUE);
+        $data['airplane'] = $this->input->post('plane', TRUE);
+        $data['hotel'] = $this->input->post('hotel', TRUE);
 
-        $slug = $this->input->post('productname',TRUE);
+        $slug = $this->input->post('packagename',TRUE);
         $data['slug'] = $this->ToSlug($slug);
-        $kodenya = $this->input->post('code_product');
+        $relation = $this->input->post('code_package', TRUE);
 
-        if (!$this->upload_handler($kodenya)) {
-            $this->session->set_flashdata('fail', 'something wrong when upload your file. try again');
-            redirect(site_url('commerce/index'));
-        } else {
-            if ($this->m_commerce->insert($data)) {
+        // check directory if available
+        $imagePath  = './i/package/';
+        $newpath    = '';
+        $year       = '';
+        $month      = '';
+        $path_full  = '';
+
+        $year  = date("Y");   //current year
+        
+        //check if current year directory is exist
+        if(!is_dir($imagePath.$year)) {
+            //make directory if not exist
+            mkdir($imagePath.$year, 0775, TRUE);
+        } 
+        
+        if (!file_exists($imagePath.$year.'/index.html')) {
+            
+            //create index.html to prevent browse image folder from browser
+            $createIndexHTML    = $imagePath.$year.'/index.html';
+            $handle             = fopen($createIndexHTML, 'w') or die('Cannot open file:  '.$createIndexHTML); //implicitly creates file
+        }
+
+        // image config/requirement for upload
+        $config['upload_path'] = $imagePath.$year;
+        $config['allowed_types'] = 'gif|jpg|jpeg|png';
+        $config['encrypt_name'] = TRUE;
+
+        // upload image
+        $this->load->library('upload', $config);
+        $relasi = $this->input->post('code_product');
+        foreach ($_FILES as $key => $value) {
+            if($this->upload->do_upload($key)) {
+                $upload_data = $this->upload->data();
+
+                $configt['image_library'] = 'gd2';
+                $configt['source_image'] = $upload_data["file_path"].$upload_data['file_name'];
+                $configt['create_thumb'] = TRUE;
+                $configt['maintain_ratio'] = TRUE;
+                $configt['width']         = 900;
+                $configt['height']       = 900;
+
+                $this->load->library('image_lib');
+                $this->image_lib->initialize($configt);
+                $this->image_lib->resize();
+                // delete the original image
+                $hapus = $upload_data["file_path"].$upload_data['file_name'];
+                unlink($hapus);
+
+                $data_i['relation'] = $relation;
+                $data_i['path'] = $imagePath.$year.'/'.$upload_data['raw_name'].'_thumb'.$upload_data['file_ext'];
+                $this->m_commerce->insertImages($data_i);
+                $hasil = "success";
+                } else {
+                    unlink(isset($data_i['path']));
+                    $this->session->set_flashdata('fail', 'something wrong when upload your file. try again');
+                    redirect(site_url('commerce/index'));
+                }
+            }
+
+            if($hasil == "success") {
+                if($this->m_commerce->insert_package($data)) {
                 $this->session->set_flashdata('success', 'data successfully saved');
-                redirect(site_url('commerce/index'));
+                redirect(site_url('commerce/add_package'));
+                }
+            } else {
+                if($this->m_commerce->insert_package($data)) {
+                $this->session->set_flashdata('success', 'data successfully saved!!');
+                redirect(site_url('commerce/add_package'));
+                }
             }
         }
-    }
+
+        public function showEditPackage($id) {
+            $data['edit'] = $this->m_commerce->get_package_for_edit($id);
+            $data['img'] = $this->m_commerce->get_all_images($id);
+            $this->load->view('package/edit_package', $data);
+        }
+
+        public function edit_package() {
+        $id = $this->input->post('id_package');
+        $data['name'] = $this->input->post('packagename', TRUE);
+        $data['price'] = $this->input->post('price', TRUE);
+        $data['content'] = $this->input->post('konten', TRUE);
+        $data['code_package'] = $this->input->post('code_package', TRUE);
+        $data['lang'] = $this->input->post('lang', TRUE);
+        $data['tour_days'] = $this->input->post('days', TRUE);
+        $data['airplane'] = $this->input->post('plane', TRUE);
+        $data['hotel'] = $this->input->post('hotel', TRUE);
+
+        $slug = $this->input->post('packagename',TRUE);
+        $data['slug'] = $this->ToSlug($slug);
+        $relation = $this->input->post('code_package', TRUE);
+
+        // check directory if available
+        $imagePath  = './i/package/';
+        $newpath    = '';
+        $year       = '';
+        $month      = '';
+        $path_full  = '';
+
+        $year  = date("Y");   //current year
+        
+        //check if current year directory is exist
+        if(!is_dir($imagePath.$year)) {
+            //make directory if not exist
+            mkdir($imagePath.$year, 0775, TRUE);
+        } 
+        
+        if (!file_exists($imagePath.$year.'/index.html')) {
+            
+            //create index.html to prevent browse image folder from browser
+            $createIndexHTML    = $imagePath.$year.'/index.html';
+            $handle             = fopen($createIndexHTML, 'w') or die('Cannot open file:  '.$createIndexHTML); //implicitly creates file
+        }
+
+        // upload image
+
+         // image config/requirement for upload
+        $config['upload_path'] = $imagePath.$year;
+        $config['allowed_types'] = 'gif|jpg|jpeg|png';
+        $config['encrypt_name'] = TRUE;
+
+        $this->load->library('upload', $config);
+
+        foreach ($_FILES as $key => $value) {
+            $filesize =$_FILES[$key]["size"];
+            if($filesize != 0) {
+                if($this->upload->do_upload($key)) {
+                    $upload_data = $this->upload->data();
+
+                    $configt['image_library'] = 'gd2';
+                    $configt['source_image'] = $upload_data["file_path"].$upload_data['file_name'];
+                    $configt['create_thumb'] = TRUE;
+                    $configt['maintain_ratio'] = TRUE;
+                    $configt['width']         = 900;
+                    $configt['height']       = 900;
+
+                    $this->load->library('image_lib');
+                    $this->image_lib->initialize($configt);
+                    $this->image_lib->resize();
+                    // delete the original image
+                    $hapus = $upload_data["file_path"].$upload_data['file_name'];
+                    unlink($hapus);
+
+                    $data_i['relation'] = $relation;
+                    $data_i['path'] = $imagePath.$year.'/'.$upload_data['raw_name'].'_thumb'.$upload_data['file_ext'];
+                    $this->m_commerce->update_images_for_packages($data_i);
+                    $hasil = "success";
+                    } else {
+                        unlink($data_i['path']);
+                        $this->session->set_flashdata('fail', 'something wrong when upload your file. try again');
+                        redirect(site_url('commerce/add_package'));
+                    }
+            }
+
+        }
+
+            if($hasil == "success") {
+                if($this->m_commerce->update_package($id, $data)) {
+                $this->session->set_flashdata('success', 'data successfully changes!');
+                redirect(site_url('commerce/add_package'));
+                }
+            } else {
+                $this->m_commerce->update_images_for_packages($data_i);
+                if($this->m_commerce->update_package($id, $data)) {
+                $this->session->set_flashdata('success', 'data successfully changes!!');
+                redirect(site_url('commerce/add_package'));
+                }
+            }
+        }
+
+        public function deletePackage($id) {
+            $row = $this->m_commerce->get_package_id_before_delete($id);
+
+            if ($row) {
+
+                foreach ($row as $a) {
+                    unlink($a['path']);
+                    $report = 'sukses';
+                }
+
+                if($report = 'sukses') {
+                    $this->m_commerce->delete_package($id);
+                    $this->session->set_flashdata('success', 'Delete Record Success');
+                    redirect(site_url('commerce/add_package'));
+                }
+            } else {
+                $this->session->set_flashdata('fail', 'Record Not Found');
+                redirect(site_url('commerce/add_package'));
+            }
+        }
+
+
+
 
     public static function genCode($length) {
         $chars = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";

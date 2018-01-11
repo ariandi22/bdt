@@ -11,19 +11,23 @@
                     </li>
 
                     <li>
-                        <a href="<?= base_url('pages/index') ?>"><i class="fa fa-fw fa fa-files-o"></i> Post</a>
-                    </li>
-
-                    <li>
                         <a href="<?= base_url('menu/index') ?>"><i class="fa fa-fw fa fa-navicon"></i> Menu</a>
                     </li>
                     
                     <li>
-                        <a href="tables.html"><i class="fa fa-fw fa-file-photo-o"></i> Media Manager</a>
+                        <a href="<?= base_url('commerce/add_package') ?>"><i class="fa fa-fw fa-book"></i> Package</a>
                     </li>
 
                     <li>
-                        <a href="<?= base_url('commerce/index') ?>"><i class="fa fa-fw fa-shopping-basket"></i> e-Commerce</a>
+                        <a href="tables.html"><i class="fa fa-fw fa-file-photo-o"></i> Destination</a>
+                    </li>
+
+                    <li>
+                        <a href="tables.html"><i class="fa fa-fw fa-car"></i> Cars</a>
+                    </li>
+
+                    <li>
+                        <a href="<?= base_url('commerce/index') ?>"><i class="fa fa-fw fa-shopping-basket"></i> Products</a>
                     </li>
 
                     <li>

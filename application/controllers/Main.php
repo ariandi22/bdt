@@ -14,30 +14,51 @@ class Main extends CI_Controller {
 	}
 
 	public function index() {
+		$this->load->view('main/index');
+	}
+
+	public function tour_package() {
 		$data['regular'] = $this->m_main->index_regular();
-		$data['premium'] = $this->m_main->index_premium();
-		$this->load->view('main/index', $data);
+
+		$data['content'] = 'main/tour_package';
+		$this->load->view('layout/layout_main', $data);
+	}
+
+	public function tour_package_detail($slug) {
+
+		$data['detail'] = $this->m_main->package_detail($slug);
+		
+		$data['content'] = 'main/tour_package_detail';
+		$this->load->view('layout/layout_main', $data);
 	}
 
 	public function costume_plan() {
 		$data['reg'] = $this->m_main->index_north();
 		$data['hotels'] = $this->m_main->index_hotels();
 		$data['cars'] = $this->m_main->index_cars();
-		unset($_SESSION['name']);
-		$this->load->view('main/costume_order', $data);
+		$data['content'] = 'main/costume_order';
+		$this->load->view('layout/layout_main', $data);
 	}
 	public function costume_plan_preview() {
 		if (isset($_POST['des']) or isset($_POST['hotels']) or isset($_POST['cars']) ) {
 			
 			$a = $this->m_main->costume_plan_preview();
 			if($a) {
-				$data['destination'] = $this->session->userdata();
-				$this->load->view('main/costume_order_preview', $data);
+				$data['data_plan'] = $this->session->userdata();
+
+				$data['content'] = 'main/costume_order_preview';
+				$this->load->view('layout/layout_main', $data);
 			}
 
-		} else {
-			$data['destination'] = $this->session->userdata();
-			$this->load->view('main/costume_order_preview', $data);
+		} elseif (isset($_SESSION['destination']) or isset($_SESSION['hotels']) or isset($_SESSION['cars'])) {
+			$data['data_plan'] = $this->session->userdata();
+			
+			$data['content'] = 'main/costume_order_preview';
+			$this->load->view('layout/layout_main', $data);
+		} 
+		else {
+			$this->session->set_flashdata('fail', 'No data are selected');
+			redirect(base_url('costume_plan'));
 		}
 		
 	}

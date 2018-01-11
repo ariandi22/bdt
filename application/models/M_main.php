@@ -53,6 +53,15 @@ class M_main extends CI_Model {
 		return $this->db->get()->result_array();
 	}
 
+	function package_detail($slug) {
+		$this->db->select('*');
+		$this->db->from('products');
+		$this->db->join('images', 'products.code_product=images.relation');
+		$this->db->where('lang', 'ID');
+		$this->db->where('slug', $slug);
+		return $this->db->get()->result_array();
+	}
+
 	function costume_plan_preview() {
 
 		if (isset($_POST['des'])) {

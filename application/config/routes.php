@@ -52,6 +52,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'main';
 $route['costume_plan'] = 'main/costume_plan';
 $route['costume_plan_preview'] = 'main/costume_plan_preview';
+$route['tour_package'] = 'main/tour_package';
+$route['tour_package/(:any)'] = 'main/tour_package_detail/$1';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
